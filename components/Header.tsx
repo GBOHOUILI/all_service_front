@@ -1,0 +1,60 @@
+"use client";
+
+import Link from "next/link";
+import { useCart } from "./CartContext";
+
+const NAV = [
+  { href: "/", label: "Accueil" },
+  { href: "/boutique", label: "Boutique" },
+  { href: "/sur-mesure", label: "Sur-mesure" },
+  { href: "/galerie", label: "Galerie" },
+  { href: "/conseils", label: "Conseils" },
+  { href: "/a-propos", label: "À propos" },
+  { href: "/contact", label: "Contact" },
+];
+
+export default function Header() {
+  const { cartCount, wishlist } = useCart();
+
+  return (
+    <header
+      style={{
+        position: "sticky",
+        top: 0,
+        zIndex: 40,
+        background: "rgba(251,249,244,0.85)",
+        backdropFilter: "blur(14px)",
+        borderBottom: "1px solid var(--line)",
+      }}
+    >
+      <div className="wrap" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 28px", gap: 24 }}>
+        <Link href="/" style={{ display: "flex", flexDirection: "column", lineHeight: 1, gap: 3 }}>
+          <span style={{ fontFamily: "var(--font-display)", fontSize: 22, color: "var(--forest)" }}>All Services</span>
+          <span style={{ fontSize: 9, letterSpacing: "0.32em", color: "var(--brass)", fontWeight: 600 }}>ATELIER FLORAL</span>
+        </Link>
+        <nav style={{ display: "flex", gap: 28 }} className="main-nav">
+          {NAV.map((n) => (
+            <Link key={n.href} href={n.href} style={{ fontSize: 14.5, color: "var(--ink-soft)" }}>
+              {n.label}
+            </Link>
+          ))}
+        </nav>
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <Link href="/compte" style={{ fontSize: 13, color: "var(--forest)", fontWeight: 600 }}>
+            Compte
+          </Link>
+          <Link href="/wishlist" style={{ fontSize: 13, color: "var(--forest)", fontWeight: 600 }}>
+            Favoris {wishlist.length > 0 && `(${wishlist.length})`}
+          </Link>
+          <Link
+            href="/panier"
+            className="btn btn-outline"
+            style={{ padding: "8px 16px", fontSize: 13 }}
+          >
+            Panier {cartCount > 0 && `(${cartCount})`}
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
+}
