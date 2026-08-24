@@ -1,0 +1,49 @@
+"use client";
+
+import { useState } from "react";
+
+export default function ContactPage() {
+  const [sent, setSent] = useState(false);
+
+  return (
+    <section className="section">
+      <div className="wrap">
+        <h1 style={{ fontSize: 36 }}>Contactez-nous</h1>
+        <p className="lede" style={{ margin: "8px 0 40px", maxWidth: "none" }}>
+          Nous sommes là pour vous aider à créer quelque chose de beau.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 50 }}>
+          {sent ? (
+            <div className="empty-state" style={{ padding: "40px 0" }}>
+              <h3>Message envoyé</h3>
+              <p>Nous revenons vers vous sous 24h.</p>
+            </div>
+          ) : (
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setSent(true);
+              }}
+            >
+              <div className="form-field"><label>Nom</label><input required placeholder="Votre nom" /></div>
+              <div className="form-field"><label>Email</label><input required type="email" placeholder="Votre email" /></div>
+              <div className="form-field"><label>Message</label><textarea required placeholder="Votre message…" /></div>
+              <button className="btn btn-primary" type="submit">Envoyer</button>
+              <p style={{ fontSize: 12, color: "var(--ink-soft)", marginTop: 14 }}>
+                🔒 Vos informations sont confidentielles. Voir notre{" "}
+                <a href="/confidentialite" style={{ color: "var(--forest)", textDecoration: "underline" }}>politique de confidentialité</a>.
+              </p>
+            </form>
+          )}
+          <div>
+            <h3 style={{ fontSize: 20, marginBottom: 8 }}>Nos coordonnées</h3>
+            <p style={{ fontSize: 13.5, color: "var(--ink-soft)" }}>+33 1 76 45 12 34</p>
+            <p style={{ fontSize: 13.5, color: "var(--ink-soft)" }}>bonjour@allservices.fr</p>
+            <p style={{ fontSize: 13.5, color: "var(--ink-soft)" }}>12 Rue des Fleurs, 75016 Paris</p>
+            <p style={{ fontSize: 13.5, color: "var(--ink-soft)" }}>Lun – Ven : 9h – 18h · Sam : 10h – 16h</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
