@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "All Services — Fleuriste premium & compositions sur-mesure",
+  title: "All Services | Fleuriste premium & compositions sur-mesure",
   description:
     "Compositions florales élégantes, fraîches et sur-mesure. Livraison soignée à Paris.",
 };

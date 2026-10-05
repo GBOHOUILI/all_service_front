@@ -15,7 +15,7 @@ export default function Testimonials({
           <span className="eyebrow">Témoignages</span>
           <h2 style={{ fontSize: 30, margin: "12px 0 14px" }}>{title}</h2>
           <p className="lede" style={{ margin: "0 auto" }}>
-            Des centaines de clients nous confient leurs moments les plus précieux — voici quelques-uns de leurs mots,
+            Des centaines de clients nous confient leurs moments les plus précieux. Voici quelques-uns de leurs mots,
             recueillis après leur commande.
           </p>
         </div>

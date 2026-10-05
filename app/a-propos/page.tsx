@@ -40,7 +40,7 @@ export default function AProposPage() {
           </p>
           <p className="lede" style={{ margin: "0 0 24px", maxWidth: "none" }}>
             Ce qui a commencé comme une petite boutique de quartier est devenu, au fil des années, une maison florale
-            reconnue pour l&apos;exigence de ses compositions et la sincérité de son accompagnement — des bouquets du
+            reconnue pour l&apos;exigence de ses compositions et la sincérité de son accompagnement : des bouquets du
             quotidien aux plus grands mariages, chaque création reçoit la même attention.
           </p>
 
@@ -62,7 +62,7 @@ export default function AProposPage() {
         </div>
       </section>
 
-      {/* NOUVELLE SECTION — l'atelier en images */}
+      {/* NOUVELLE SECTION : l'atelier en images */}
       <section className="section" style={{ background: "var(--card)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
         <div className="wrap">
           <div className="center" style={{ marginBottom: 30 }}>
@@ -79,7 +79,7 @@ export default function AProposPage() {
         </div>
       </section>
 
-      {/* NOUVELLE SECTION — équipe */}
+      {/* NOUVELLE SECTION : équipe */}
       <section className="section">
         <div className="wrap">
           <div className="center" style={{ marginBottom: 36 }}>
@@ -100,7 +100,7 @@ export default function AProposPage() {
         </div>
       </section>
 
-      {/* NOUVELLE SECTION — chiffres clés */}
+      {/* NOUVELLE SECTION : chiffres clés */}
       <section className="section" style={{ background: "var(--card)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
         <div className="wrap" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20, textAlign: "center" }}>
           <div><b style={{ display: "block", fontFamily: "var(--font-display)", fontSize: 30, color: "var(--forest)" }}>10+</b><span style={{ fontSize: 12.5, color: "var(--ink-soft)" }}>Années d&apos;expérience</span></div>

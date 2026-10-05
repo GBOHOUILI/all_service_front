@@ -31,7 +31,7 @@ export default function ConnexionPage() {
         </form>
         <p className="center" style={{ fontSize: 13, color: "var(--ink-soft)", marginTop: 20 }}>
           Pas encore de compte ? <Link href="/inscription" style={{ color: "var(--forest)", fontWeight: 700 }}>Créer un compte</Link>
-          {" "}— ou <Link href="/boutique" style={{ color: "var(--forest)", fontWeight: 700 }}>commandez sans compte</Link>
+          {" "}ou <Link href="/boutique" style={{ color: "var(--forest)", fontWeight: 700 }}>commandez sans compte</Link>
         </p>
       </div>
     </div>
