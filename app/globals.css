@@ -241,6 +241,17 @@ img, svg { display: block; max-width: 100%; }
 .cat-horizontal .cat-card-overlay h3 { font-size: clamp(22px, 2vw, 30px); }
 .cat-horizontal .cat-card-overlay p { font-size: 14px; max-width: 30ch; }
 
+/* ==== Curseur personnalisé (desktop) ==== */
+.cursor-ring, .cursor-dot { position: fixed; top: 0; left: 0; z-index: 200; pointer-events: none; visibility: hidden; }
+.cursor-ring { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--blush); display: flex; align-items: center; justify-content: center; transition: background 0.3s ease, border-color 0.3s ease; }
+.cursor-ring span { font-size: 15px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--forest-deep); opacity: 0; transition: opacity 0.2s ease; }
+.cursor-ring.is-view { background: var(--blush); border-color: var(--blush); }
+.cursor-ring.is-view span { opacity: 1; }
+.cursor-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brass); }
+/* GSAP drives the magnetic transform, the CSS hover lift would fight it. */
+.has-cursor main .btn { transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; }
+.has-cursor main .btn:hover { transform: none; }
+
 /* ==== Accueil : bandeau chiffres + ligne du processus ==== */
 .stats-band b { font-variant-numeric: tabular-nums; }
 @media (max-width: 780px) { .stats-band { grid-template-columns: repeat(2, 1fr) !important; row-gap: 28px !important; } }

@@ -6,6 +6,7 @@ import ProductCard from "@/components/ProductCard";
 import Testimonials from "@/components/Testimonials";
 import HeroMotion from "@/components/home/HeroMotion";
 import HomeReveals from "@/components/home/HomeReveals";
+import Cursor from "@/components/home/Cursor";
 
 export default function HomePage() {
   const bestsellers = PRODUCTS.filter((p) => !p.hidden).slice(0, 4);
@@ -16,6 +17,7 @@ export default function HomePage() {
 
   return (
     <>
+      <Cursor />
       <HeroMotion avg={avg} />
 
       <HomeReveals>
