@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "./CartContext";
 import { BRAND } from "@/lib/brand";
@@ -16,6 +17,7 @@ const NAV = [
 
 export default function Header() {
   const { cartCount, wishlist } = useCart();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header
@@ -48,10 +50,10 @@ export default function Header() {
           ))}
         </nav>
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <Link href="/compte" style={{ fontSize: 13, color: "var(--forest)", fontWeight: 600 }}>
+          <Link href="/compte" className="header-secondary" style={{ fontSize: 13, color: "var(--forest)", fontWeight: 600 }}>
             Compte
           </Link>
-          <Link href="/wishlist" style={{ fontSize: 13, color: "var(--forest)", fontWeight: 600 }}>
+          <Link href="/wishlist" className="header-secondary" style={{ fontSize: 13, color: "var(--forest)", fontWeight: 600 }}>
             Favoris {wishlist.length > 0 && `(${wishlist.length})`}
           </Link>
           <Link
@@ -61,8 +63,26 @@ export default function Header() {
           >
             Panier {cartCount > 0 && `(${cartCount})`}
           </Link>
+          <button
+            type="button"
+            className="menu-toggle"
+            aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((o) => !o)}
+          >
+            <span className={menuOpen ? "menu-icon open" : "menu-icon"} />
+          </button>
         </div>
       </div>
+      {menuOpen && (
+        <nav className="mobile-nav" onClick={() => setMenuOpen(false)}>
+          {[...NAV, { href: "/compte", label: "Compte" }, { href: "/wishlist", label: "Favoris" }].map((n) => (
+            <Link key={n.href} href={n.href}>
+              {n.label}
+            </Link>
+          ))}
+        </nav>
+      )}
     </header>
   );
 }
