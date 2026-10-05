@@ -1,0 +1,106 @@
+"use client";
+
+import { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+// Scroll choreography for the home sections below the hero. Markup opts in
+// through data attributes so page.tsx stays a server component:
+//   data-reveal          fade + rise when entering the viewport
+//   data-reveal-group    same, staggered on direct children
+//   data-count="500"     counter (+ data-prefix, data-suffix, data-decimals)
+export default function HomeReveals({ children }: { children: React.ReactNode }) {
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const q = gsap.utils.selector(root);
+    const mm = gsap.matchMedia();
+
+    mm.add(
+      "(prefers-reduced-motion: no-preference)",
+      () => {
+        q("[data-reveal]").forEach((el) => {
+          gsap.from(el, {
+            autoAlpha: 0,
+            y: 50,
+            duration: 1.1,
+            ease: "expo.out",
+            scrollTrigger: { trigger: el, start: "top 88%", once: true },
+          });
+        });
+
+        // Testimonials is shared with other pages, so it is targeted by class here.
+        q("[data-reveal-group], .testimonial-grid").forEach((group) => {
+          gsap.from(group.children, {
+            autoAlpha: 0,
+            y: 60,
+            duration: 1.1,
+            ease: "expo.out",
+            stagger: 0.12,
+            scrollTrigger: { trigger: group, start: "top 85%", once: true },
+          });
+        });
+
+        // Category cards unveil like a curtain while the photo settles.
+        const cats = q(".cat-card");
+        if (cats.length) {
+          const tl = gsap.timeline({ scrollTrigger: { trigger: cats[0], start: "top 85%", once: true } });
+          tl.fromTo(
+            cats,
+            { clipPath: "inset(100% 0% 0% 0%)" },
+            { clipPath: "inset(0% 0% 0% 0%)", duration: 1.3, ease: "expo.inOut", stagger: 0.12 }
+          )
+            .from(cats.map((c) => c.querySelector("img")), { scale: 1.35, duration: 1.8, ease: "expo.out", stagger: 0.12 }, 0.3)
+            .from(cats.map((c) => c.querySelector(".cat-card-overlay > *")), { autoAlpha: 0, y: 20, duration: 0.8, stagger: 0.12 }, 0.8);
+        }
+
+        // Process: the line draws itself with the scroll, each step lights up as it passes.
+        const track = q(".steps-track")[0];
+        if (track) {
+          gsap.fromTo(
+            q(".steps-line-fill"),
+            { scaleX: 0 },
+            { scaleX: 1, ease: "none", scrollTrigger: { trigger: track, start: "top 75%", end: "bottom 55%", scrub: 0.5 } }
+          );
+          q(".step-card").forEach((card, i) => {
+            gsap
+              .timeline({ scrollTrigger: { trigger: track, start: `top+=${i * 40} 75%`, once: true } })
+              .from(card.querySelector(".step-num"), { scale: 0, rotation: -90, duration: 0.9, ease: "back.out(2)", delay: i * 0.18 })
+              .from(card.querySelectorAll("h3, p"), { autoAlpha: 0, y: 16, duration: 0.7, stagger: 0.08, ease: "power3.out" }, "-=0.5");
+          });
+        }
+
+        q("[data-count]").forEach((el) => {
+          const target = parseFloat(el.dataset.count ?? "0");
+          const decimals = parseInt(el.dataset.decimals ?? "0", 10);
+          const format = (v: number) => `${el.dataset.prefix ?? ""}${v.toFixed(decimals)}${el.dataset.suffix ?? ""}`;
+          const counter = { v: 0 };
+          el.textContent = format(0);
+          gsap.to(counter, {
+            v: target,
+            duration: 2.2,
+            ease: "power3.out",
+            onUpdate: () => {
+              el.textContent = format(counter.v);
+            },
+            scrollTrigger: { trigger: el, start: "top 90%", once: true },
+          });
+        });
+
+        // Next/Image can shift layout after load; recompute trigger positions once settled.
+        const refresh = () => ScrollTrigger.refresh();
+        window.addEventListener("load", refresh);
+        return () => window.removeEventListener("load", refresh);
+      },
+      root
+    );
+
+    return () => mm.revert();
+  }, []);
+
+  return <div ref={rootRef}>{children}</div>;
+}

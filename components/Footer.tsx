@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BRAND } from "@/lib/brand";
 
 export default function Footer() {
   return (
@@ -6,7 +7,7 @@ export default function Footer() {
       <div className="wrap">
         <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr", gap: 40, marginBottom: 40 }}>
           <div>
-            <span style={{ fontFamily: "var(--font-display)", fontSize: 20, color: "var(--forest)" }}>All Services</span>
+            <span style={{ fontFamily: "var(--font-display)", fontSize: 20, color: "var(--forest)" }}>{BRAND.name}</span>
             <p style={{ fontSize: 13.5, color: "var(--ink-soft)", maxWidth: 260, margin: "12px 0 0" }}>
               L&apos;art des fleurs, pensé avec émotion pour sublimer chaque moment de votre vie.
             </p>
@@ -36,7 +37,7 @@ export default function Footer() {
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 22, borderTop: "1px solid var(--line)", fontSize: 12.5, color: "var(--ink-soft)", flexWrap: "wrap", gap: 12 }}>
-          <span>© 2024 All Services. Tous droits réservés.</span>
+          <span>© {new Date().getFullYear()} {BRAND.name}. Tous droits réservés.</span>
           <Link href="/admin/login" style={{ textDecoration: "underline" }}>Accès professionnel</Link>
         </div>
       </div>
