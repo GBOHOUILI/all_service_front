@@ -208,6 +208,50 @@ img, svg { display: block; max-width: 100%; }
   .hero-glow, .hero-scroll-hint i { animation: none; }
 }
 
+/* Plongée dans le hero (desktop) : portail plein écran ouvert au scroll. */
+.hero-portal { position: absolute; inset: 0; z-index: 2; clip-path: inset(50% 50% 50% 50% round 40px); overflow: hidden; pointer-events: none; }
+.hero-portal-img { position: absolute; inset: 0; will-change: transform; }
+.hero-portal-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15, 28, 20, 0.15) 0%, rgba(15, 28, 20, 0.35) 45%, rgba(15, 28, 20, 0.85) 100%); }
+.hero-portal-copy { position: absolute; left: 0; right: 0; bottom: 12vh; }
+.portal-eyebrow { color: var(--blush); }
+.portal-statement { font-family: var(--font-display); font-size: clamp(40px, 6.4vw, 104px); line-height: 1; letter-spacing: -0.03em; color: var(--ivory); margin: 18px 0 0; max-width: 14ch; }
+.portal-word { display: inline-block; }
+@media (max-width: 899px) { .hero-portal { display: none; } }
+
+/* ==== Accueil : bandeau défilant ==== */
+.marquee-band { padding: 70px 0 30px; overflow: hidden; }
+.marquee-row { display: flex; white-space: nowrap; will-change: transform; }
+.marquee-track { display: flex; flex-shrink: 0; will-change: transform; }
+.marquee-item { display: inline-flex; align-items: center; gap: 0.45em; padding-right: 0.45em; font-family: var(--font-display); font-size: clamp(44px, 8vw, 120px); line-height: 1.1; letter-spacing: -0.03em; color: var(--forest); }
+.marquee-row-outline .marquee-item { font-style: italic; font-weight: 400; color: transparent; -webkit-text-stroke: 1px var(--brass); }
+.marquee-dot { display: inline-block; width: 0.16em; height: 0.16em; border-radius: 50%; background: var(--blush); }
+
+/* ==== Accueil : catégories en galerie horizontale (desktop, classe posée par GSAP) ==== */
+.cat-horizontal { height: 100vh; display: flex; align-items: center; overflow: hidden; padding: 0; }
+.cat-horizontal .wrap { width: 100%; }
+.cat-horizontal .center { text-align: left; margin-bottom: 36px !important; }
+.cat-horizontal .center h2 { font-size: clamp(32px, 4vw, 56px) !important; max-width: 16ch; }
+.cat-horizontal .cat-grid { display: flex; gap: 32px; width: max-content; will-change: transform; }
+.cat-horizontal .cat-grid { counter-reset: cat; }
+.cat-horizontal .cat-card { width: clamp(360px, 40vw, 640px); height: min(62vh, 600px); aspect-ratio: auto; border-radius: 26px; flex-shrink: 0; counter-increment: cat; }
+.cat-horizontal .cat-card::before { content: "0" counter(cat); position: absolute; top: 22px; left: 28px; z-index: 1; font-family: var(--font-display); font-size: 64px; line-height: 1; color: var(--ivory); opacity: 0.9; }
+.cat-horizontal .cat-card img { inset: 0 -12% !important; width: 124% !important; max-width: none; transition: none; }
+.cat-horizontal .cat-card:hover img { transform: none; }
+.cat-horizontal .cat-card-overlay { padding: 30px; }
+.cat-horizontal .cat-card-overlay h3 { font-size: clamp(22px, 2vw, 30px); }
+.cat-horizontal .cat-card-overlay p { font-size: 14px; max-width: 30ch; }
+
+/* ==== Curseur personnalisé (desktop) ==== */
+.cursor-ring, .cursor-dot { position: fixed; top: 0; left: 0; z-index: 200; pointer-events: none; visibility: hidden; }
+.cursor-ring { width: 110px; height: 110px; border-radius: 50%; border: 3px solid var(--blush); display: flex; align-items: center; justify-content: center; transition: background 0.3s ease, border-color 0.3s ease; }
+.cursor-ring span { font-size: 15px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--forest-deep); opacity: 0; transition: opacity 0.2s ease; }
+.cursor-ring.is-view { background: var(--blush); border-color: var(--blush); }
+.cursor-ring.is-view span { opacity: 1; }
+.cursor-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brass); }
+/* GSAP drives the magnetic transform, the CSS hover lift would fight it. */
+.has-cursor main .btn { transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; }
+.has-cursor main .btn:hover { transform: none; }
+
 /* ==== Accueil : bandeau chiffres + ligne du processus ==== */
 .stats-band b { font-variant-numeric: tabular-nums; }
 @media (max-width: 780px) { .stats-band { grid-template-columns: repeat(2, 1fr) !important; row-gap: 28px !important; } }
