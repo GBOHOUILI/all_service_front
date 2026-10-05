@@ -207,7 +207,7 @@ export const CATEGORY_HIGHLIGHTS = [
     label: "Plantes & cadeaux floraux",
     desc: "Des cadeaux qui durent, entre nature et élégance.",
     image:
-      "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=1000&q=85",
+      "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1000&q=85",
   },
 ] as const;
 
