@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Product } from "@/lib/data";
+import { Product, fmt } from "@/lib/data";
 import { useCart } from "./CartContext";
 
 export default function ProductCard({ product }: { product: Product }) {
@@ -26,7 +26,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </Link>
         <p>{product.desc}</p>
         <div className="p-foot">
-          <span className="price">À partir de {product.base} €</span>
+          <span className="price">À partir de {fmt(product.base)}</span>
           <div style={{ display: "flex", gap: 8 }}>
             <button
               onClick={() => toggleWishlist(product.slug)}

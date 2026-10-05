@@ -1,3 +1,5 @@
+import { BRAND } from "./brand";
+
 // ============================================================
 // DONNÉES EN MÉMOIRE
 // ------------------------------------------------------------
@@ -534,7 +536,7 @@ export function orderTotal(o: Order) {
   return o.items.reduce((s, i) => s + i.price * i.qty, 0) + o.delivery;
 }
 export function fmt(n: number) {
-  return n.toLocaleString("fr-FR") + " €";
+  return n.toLocaleString("fr-FR") + " " + BRAND.currency;
 }
 export function findOrder(id: string) {
   return ORDERS.find((o) => o.id === id);

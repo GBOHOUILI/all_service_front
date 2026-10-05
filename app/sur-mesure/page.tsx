@@ -55,7 +55,7 @@ export default function SurMesurePage() {
               <PillGrid>
                 {SIZES.map((s, i) => (
                   <Pill key={s.label} active={sizeIdx === i} onClick={() => setSizeIdx(i)}>
-                    {s.label}<br /><span style={{ fontSize: 11, opacity: 0.7 }}>{s.delta === 0 ? "Prix standard" : (s.delta > 0 ? "+" : "") + s.delta + " €"}</span>
+                    {s.label}<br /><span style={{ fontSize: 11, opacity: 0.7 }}>{s.delta === 0 ? "Prix standard" : (s.delta > 0 ? "+" : "") + fmt(s.delta)}</span>
                   </Pill>
                 ))}
               </PillGrid>
