@@ -7,7 +7,7 @@ export default function AdminDashboardPage() {
 
   return (
     <AdminShell title="Tableau de bord">
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 18, marginBottom: 26 }}>
+      <div className="cols-4" style={{ gap: 18, marginBottom: 26 }}>
         <Kpi label="Chiffre d'affaires" value={fmt(revenue)} />
         <Kpi label="Commandes" value={String(ORDERS.length)} />
         <Kpi label="Clients" value={String(CUSTOMERS.length)} />
