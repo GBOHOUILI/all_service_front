@@ -218,6 +218,29 @@ img, svg { display: block; max-width: 100%; }
 .portal-word { display: inline-block; }
 @media (max-width: 899px) { .hero-portal { display: none; } }
 
+/* ==== Accueil : bandeau défilant ==== */
+.marquee-band { padding: 70px 0 30px; overflow: hidden; }
+.marquee-row { display: flex; white-space: nowrap; will-change: transform; }
+.marquee-track { display: flex; flex-shrink: 0; will-change: transform; }
+.marquee-item { display: inline-flex; align-items: center; gap: 0.45em; padding-right: 0.45em; font-family: var(--font-display); font-size: clamp(44px, 8vw, 120px); line-height: 1.1; letter-spacing: -0.03em; color: var(--forest); }
+.marquee-row-outline .marquee-item { font-style: italic; font-weight: 400; color: transparent; -webkit-text-stroke: 1px var(--brass); }
+.marquee-dot { display: inline-block; width: 0.16em; height: 0.16em; border-radius: 50%; background: var(--blush); }
+
+/* ==== Accueil : catégories en galerie horizontale (desktop, classe posée par GSAP) ==== */
+.cat-horizontal { height: 100vh; display: flex; align-items: center; overflow: hidden; padding: 0; }
+.cat-horizontal .wrap { width: 100%; }
+.cat-horizontal .center { text-align: left; margin-bottom: 36px !important; }
+.cat-horizontal .center h2 { font-size: clamp(32px, 4vw, 56px) !important; max-width: 16ch; }
+.cat-horizontal .cat-grid { display: flex; gap: 32px; width: max-content; will-change: transform; }
+.cat-horizontal .cat-grid { counter-reset: cat; }
+.cat-horizontal .cat-card { width: clamp(360px, 40vw, 640px); height: min(62vh, 600px); aspect-ratio: auto; border-radius: 26px; flex-shrink: 0; counter-increment: cat; }
+.cat-horizontal .cat-card::before { content: "0" counter(cat); position: absolute; top: 22px; left: 28px; z-index: 1; font-family: var(--font-display); font-size: 64px; line-height: 1; color: var(--ivory); opacity: 0.9; }
+.cat-horizontal .cat-card img { inset: 0 -12% !important; width: 124% !important; max-width: none; transition: none; }
+.cat-horizontal .cat-card:hover img { transform: none; }
+.cat-horizontal .cat-card-overlay { padding: 30px; }
+.cat-horizontal .cat-card-overlay h3 { font-size: clamp(22px, 2vw, 30px); }
+.cat-horizontal .cat-card-overlay p { font-size: 14px; max-width: 30ch; }
+
 /* ==== Accueil : bandeau chiffres + ligne du processus ==== */
 .stats-band b { font-variant-numeric: tabular-nums; }
 @media (max-width: 780px) { .stats-band { grid-template-columns: repeat(2, 1fr) !important; row-gap: 28px !important; } }

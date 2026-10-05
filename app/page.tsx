@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { PRODUCTS, REVIEWS, CATEGORY_HIGHLIGHTS, BLOG } from "@/lib/data";
+import { PRODUCTS, REVIEWS, CATEGORY_HIGHLIGHTS, BLOG, EVENTS } from "@/lib/data";
+import { BRAND } from "@/lib/brand";
 import ProductCard from "@/components/ProductCard";
 import Testimonials from "@/components/Testimonials";
 import HeroMotion from "@/components/home/HeroMotion";
@@ -10,18 +11,36 @@ export default function HomePage() {
   const bestsellers = PRODUCTS.filter((p) => !p.hidden).slice(0, 4);
   const avg = (REVIEWS.reduce((s, r) => s + r.rating, 0) / REVIEWS.length).toFixed(1);
   const latestArticles = BLOG.slice(0, 3);
+  const occasions = EVENTS.filter((e) => e.key !== "all").map((e) => e.label);
+  const promises = ["Fait main", "Fleurs de saison", `Livré à ${BRAND.city}`, "Compositions sur-mesure", "Emballage soigné"];
 
   return (
     <>
       <HeroMotion avg={avg} />
 
       <HomeReveals>
+        <section className="marquee-band" aria-hidden="true">
+          {[occasions, promises].map((row, r) => (
+            <div key={r} className={r === 0 ? "marquee-row" : "marquee-row marquee-row-outline"} data-marquee={r === 0 ? 1 : -1}>
+              {/* Content is doubled so the -50% loop is seamless. */}
+              <div className="marquee-track">
+                {[...row, ...row].map((label, i) => (
+                  <span key={i} className="marquee-item">
+                    {label}
+                    <i className="marquee-dot" />
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </section>
+
         {/* NOUVELLE SECTION : catégories phares */}
-        <section className="section">
+        <section className="section cat-section">
           <div className="wrap">
             <div className="center" style={{ marginBottom: 30 }} data-reveal>
               <span className="eyebrow">Nos univers</span>
-              <h2 style={{ fontSize: 28, margin: "12px 0 0" }}>Une composition pour chaque instant</h2>
+              <h2 style={{ fontSize: 28, margin: "12px 0 0" }} data-split>Une composition pour chaque instant</h2>
             </div>
             <div className="cat-grid">
               {CATEGORY_HIGHLIGHTS.map((c) => (
@@ -41,7 +60,7 @@ export default function HomePage() {
           <div className="wrap">
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 26, flexWrap: "wrap", gap: 14 }} data-reveal>
               <div>
-                <h2 style={{ fontSize: 28 }}>Nos créations les plus aimées</h2>
+                <h2 style={{ fontSize: 28 }} data-split>Nos créations les plus aimées</h2>
                 <p style={{ fontSize: 14.5, color: "var(--ink-soft)", marginTop: 8, maxWidth: 480 }}>
                   Les compositions préférées de nos client·e·s ce mois-ci, à retrouver aussi en plusieurs tailles.
                 </p>
@@ -61,7 +80,7 @@ export default function HomePage() {
           <div className="wrap">
             <div className="center" style={{ marginBottom: 36 }} data-reveal>
               <span className="eyebrow">Le processus</span>
-              <h2 style={{ fontSize: 28, margin: "12px 0 0" }}>De l&apos;atelier à votre porte</h2>
+              <h2 style={{ fontSize: 28, margin: "12px 0 0" }} data-split>De l&apos;atelier à votre porte</h2>
             </div>
             <div className="steps-track">
               <div className="steps-line" aria-hidden="true"><span className="steps-line-fill" /></div>
@@ -110,7 +129,7 @@ export default function HomePage() {
           <div className="wrap">
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 26, flexWrap: "wrap", gap: 14 }} data-reveal>
               <div>
-                <h2 style={{ fontSize: 28 }}>Nos derniers conseils</h2>
+                <h2 style={{ fontSize: 28 }} data-split>Nos derniers conseils</h2>
                 <p style={{ fontSize: 14.5, color: "var(--ink-soft)", marginTop: 8, maxWidth: 480 }}>
                   Entretien, inspiration et astuces d&apos;atelier pour profiter pleinement de vos fleurs.
                 </p>
@@ -137,7 +156,7 @@ export default function HomePage() {
         <section className="section">
           <div className="wrap" data-reveal style={{ background: "linear-gradient(135deg, var(--ivory), var(--card))", border: "1px solid var(--line)", borderRadius: 24, padding: 44, textAlign: "center" }}>
             <span className="eyebrow">Composition sur-mesure</span>
-            <h2 style={{ fontSize: 28, margin: "12px 0 16px" }}>Envie d&apos;une création qui vous ressemble ?</h2>
+            <h2 style={{ fontSize: 28, margin: "12px 0 16px" }} data-split>Envie d&apos;une création qui vous ressemble ?</h2>
             <p className="lede" style={{ margin: "0 auto 24px" }}>
               Choisissez le type de bouquet, la taille, la palette de couleurs et l&apos;occasion. Notre atelier
               imagine ensuite une composition unique, pensée spécialement pour vous.
