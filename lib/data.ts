@@ -134,7 +134,7 @@ export const PRODUCTS: Product[] = [
     accent: "var(--sage)",
     care: "plante",
     image:
-      "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1200&q=85",
   },
 
   {
@@ -399,7 +399,7 @@ export const GALLERY_ITEMS = [
     title: "Cadeau floral",
     caption: "Une plante fleurie offerte avec soin.",
     image:
-      "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1200&q=85",
   },
 ];
 
