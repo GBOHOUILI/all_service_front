@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "./CartContext";
 import { BRAND } from "@/lib/brand";
+import { DEMO_PAGES } from "@/lib/features";
 
 const NAV = [
   { href: "/", label: "Accueil" },
@@ -50,9 +51,11 @@ export default function Header() {
           ))}
         </nav>
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <Link href="/compte" className="header-secondary" style={{ fontSize: 13, color: "var(--forest)", fontWeight: 600 }}>
-            Compte
-          </Link>
+          {DEMO_PAGES && (
+            <Link href="/compte" className="header-secondary" style={{ fontSize: 13, color: "var(--forest)", fontWeight: 600 }}>
+              Compte
+            </Link>
+          )}
           <Link href="/wishlist" className="header-secondary" style={{ fontSize: 13, color: "var(--forest)", fontWeight: 600 }}>
             Favoris {wishlist.length > 0 && `(${wishlist.length})`}
           </Link>
@@ -76,7 +79,7 @@ export default function Header() {
       </div>
       {menuOpen && (
         <nav className="mobile-nav" onClick={() => setMenuOpen(false)}>
-          {[...NAV, { href: "/compte", label: "Compte" }, { href: "/wishlist", label: "Favoris" }].map((n) => (
+          {[...NAV, ...(DEMO_PAGES ? [{ href: "/compte", label: "Compte" }] : []), { href: "/wishlist", label: "Favoris" }].map((n) => (
             <Link key={n.href} href={n.href}>
               {n.label}
             </Link>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BRAND } from "@/lib/brand";
+import { DEMO_PAGES } from "@/lib/features";
 
 export default function Footer() {
   return (
@@ -38,7 +39,7 @@ export default function Footer() {
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: 22, borderTop: "1px solid var(--line)", fontSize: 12.5, color: "var(--ink-soft)", flexWrap: "wrap", gap: 12 }}>
           <span>© {new Date().getFullYear()} {BRAND.name}. Tous droits réservés.</span>
-          <Link href="/admin/login" style={{ textDecoration: "underline" }}>Accès professionnel</Link>
+          {DEMO_PAGES && <Link href="/admin/login" style={{ textDecoration: "underline" }}>Accès professionnel</Link>}
         </div>
       </div>
     </footer>
