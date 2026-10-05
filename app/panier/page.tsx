@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useCart } from "@/components/CartContext";
 import { findProduct, fmt, shippingFor, FREE_DELIVERY_FROM } from "@/lib/data";
 import { BRAND } from "@/lib/brand";
+import { DEMO_PAGES } from "@/lib/features";
 import { orderMessage, whatsappUrl } from "@/lib/whatsapp";
 
 export default function PanierPage() {
@@ -84,8 +85,8 @@ export default function PanierPage() {
         <div className="wrap">
           <h1 style={{ fontSize: 32, marginBottom: 20 }}>Vos coordonnées</h1>
           <div className="banner-info">
-            <p>✓ Pas besoin de créer de compte : vous pouvez commander en tant qu&apos;invité·e.</p>
-            <Link href="/connexion" className="btn-ghost">Déjà client ? Se connecter →</Link>
+            <p>✓ Aucun compte nécessaire : renseignez vos coordonnées, la commande part sur WhatsApp.</p>
+            {DEMO_PAGES && <Link href="/connexion" className="btn-ghost">Déjà client ? Se connecter →</Link>}
           </div>
           <div className="layout-split" style={{ gap: 40 }}>
             <form onSubmit={handleSubmit}>
