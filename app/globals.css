@@ -112,87 +112,110 @@ img, svg { display: block; max-width: 100%; }
   header .wrap { padding: 14px 16px !important; }
 }
 
-/* ==== Héro plein écran (fond floral / vidéo + carte glass) ==== */
-.hero-full {
+/* ==== Héro animé (GSAP, components/home/HeroMotion.tsx) ==== */
+.hero-motion {
   position: relative;
-  width: 100%;
-  min-height: 100vh;
+  min-height: calc(100svh - 72px);
   display: flex;
   align-items: center;
   overflow: hidden;
   background: var(--forest-deep);
+  color: var(--ivory);
 }
-
-.hero-media-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  overflow: hidden;
+.hero-glow {
+  position: absolute; inset: -20%; z-index: 0;
+  background:
+    radial-gradient(40% 45% at 72% 40%, color-mix(in srgb, var(--blush) 26%, transparent), transparent 70%),
+    radial-gradient(35% 40% at 15% 85%, color-mix(in srgb, var(--sage) 30%, transparent), transparent 70%),
+    radial-gradient(30% 30% at 90% 95%, color-mix(in srgb, var(--brass) 22%, transparent), transparent 70%);
+  animation: hero-glow-drift 18s ease-in-out infinite alternate;
 }
-.hero-media-bg img, .hero-media-bg video { width: 100%; height: 100%; object-fit: cover; }
+@keyframes hero-glow-drift { to { transform: translate3d(-4%, 3%, 0) rotate(4deg); } }
 
-.hero-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+.hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; width: 100%; padding-top: 60px; padding-bottom: 90px; }
+.hero-copy { position: relative; z-index: 2; }
+.hero-eyebrow { color: var(--brass); }
+.hero-title { font-size: clamp(34px, 4.6vw, 66px); line-height: 1.02; letter-spacing: -0.025em; color: var(--ivory); margin: 18px 0 24px; }
+.word-mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.word { display: inline-block; will-change: transform; }
+.word-accent { font-style: italic; font-weight: 400; color: var(--blush); }
+.hero-lede { font-size: 17px; line-height: 1.6; color: color-mix(in srgb, var(--ivory) 78%, transparent); max-width: 470px; margin: 0 0 32px; }
+.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; }
+.btn-light { background: var(--ivory); color: var(--forest-deep); }
+.btn-light:hover { transform: translateY(-2px); box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.6); }
+.btn-outline-light { border-color: color-mix(in srgb, var(--ivory) 45%, transparent); color: var(--ivory); }
+.btn-outline-light:hover { background: color-mix(in srgb, var(--ivory) 12%, transparent); }
+.hero-badges { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 38px; padding-top: 22px; border-top: 1px solid color-mix(in srgb, var(--ivory) 14%, transparent); }
+.hero-badge { font-size: 12.5px; color: color-mix(in srgb, var(--ivory) 62%, transparent); display: flex; align-items: center; gap: 8px; }
+.hero-badge b { color: var(--ivory); font-family: var(--font-display); font-size: 17px; font-weight: 600; }
 
-.hero-kenburns { animation: hero-kenburns 22s ease-in-out infinite alternate; }
-@keyframes hero-kenburns {
-  0% { transform: scale(1) translate(0, 0); }
-  100% { transform: scale(1.12) translate(-1.5%, -1.5%); }
-}
+.hero-collage { position: relative; height: min(68vh, 620px); }
+.collage-ring { position: absolute; inset: 6% 2% 4% 6%; width: 92%; height: 90%; overflow: visible; pointer-events: none; }
+.collage-ring circle { fill: none; stroke: var(--brass); stroke-width: 1; stroke-dashoffset: 1300; opacity: 0.55; }
+.collage-item { position: absolute; }
+.collage-scroll, .collage-parallax, .collage-frame { width: 100%; height: 100%; }
+.collage-frame { position: relative; overflow: hidden; border-radius: 22px; box-shadow: 0 40px 70px -30px rgba(0, 0, 0, 0.75); outline: 1px solid color-mix(in srgb, var(--ivory) 12%, transparent); outline-offset: -1px; }
+.collage-inner { position: absolute; inset: 0; will-change: transform; }
+.collage-item-0 { left: 20%; top: 14%; width: 50%; height: 60%; z-index: 5; }
+.collage-item-1 { left: 0; top: 56%; width: 34%; height: 34%; z-index: 6; }
+.collage-item-2 { left: 66%; top: 2%; width: 32%; height: 34%; z-index: 4; }
+.collage-item-3 { left: 61%; top: 54%; width: 37%; height: 42%; z-index: 6; }
+.collage-item-4 { left: 3%; top: 0; width: 25%; height: 30%; z-index: 3; }
 
-.hero-media-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(
-    115deg,
-    rgba(15, 28, 20, 0.88) 0%,
-    rgba(15, 28, 20, 0.55) 45%,
-    rgba(15, 28, 20, 0.25) 100%
-  );
-}
-
-/* FIX : sans ce bloc, .wrap reste en position statique et se retrouve
-   visuellement SOUS .hero-media-overlay (qui est positionné), même si
-   le HTML place .wrap après dans le DOM. */
-.hero-full .wrap {
-  position: relative;
-  z-index: 2;
-}
-
-.hero-glass-card {
-  max-width: 560px;
-  background: rgba(20, 34, 25, 0.45);
-  border: 1px solid rgba(247, 244, 236, 0.14);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border-radius: 26px;
-  padding: 44px 40px;
-  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
-}
-
-.hero-badges { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 26px; padding-top: 22px; border-top: 1px solid rgba(247,244,236,0.14); }
-.hero-badge { font-size: 12.5px; color: rgba(247,244,236,0.65); display: flex; align-items: center; gap: 8px; }
-.hero-badge b { color: #fff; }
+.hero-petals { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
 
 .hero-scroll-hint {
-  position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 2;
+  position: absolute; bottom: 24px; left: 50%; translate: -50% 0; z-index: 4;
   display: flex; flex-direction: column; align-items: center; gap: 8px;
-  font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(247, 244, 236, 0.5);
+  font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: color-mix(in srgb, var(--ivory) 50%, transparent);
 }
-.hero-scroll-hint i { width: 1px; height: 26px; background: rgba(247, 244, 236, 0.35); display: block; animation: hero-scroll-move 1.8s ease-in-out infinite; }
-@keyframes hero-scroll-move { 0%, 100% { transform: scaleY(0.6); opacity: 0.4; } 50% { transform: scaleY(1); opacity: 1; } }
+.hero-scroll-hint i { width: 1px; height: 30px; background: color-mix(in srgb, var(--ivory) 40%, transparent); display: block; transform-origin: top; animation: hero-scroll-move 1.8s ease-in-out infinite; }
+@keyframes hero-scroll-move { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
 
-@media (max-width: 780px) {
-  .hero-full { min-height: 82vh; }
-  .hero-glass-card { padding: 32px 26px; }
+/* Intro : écran du nom de marque puis rideau qui se lève. */
+.hero-intro {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ivory); color: var(--forest);
+  clip-path: inset(0% 0% 0% 0%);
 }
+.intro-inner { visibility: hidden; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.intro-name { font-family: var(--font-display); font-size: clamp(46px, 9vw, 120px); line-height: 1; letter-spacing: -0.03em; display: flex; }
+.intro-letter-mask { display: inline-block; overflow: hidden; padding-bottom: 0.1em; }
+.intro-letter { display: inline-block; }
+.intro-rule { width: 120px; height: 1px; background: var(--brass); display: block; }
+.intro-tagline { font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--brass); font-weight: 600; }
+
+/* État initial masqué, révélé par GSAP. Sans JS, le failsafe CSS montre tout. */
+.hero-motion [data-h], .hero-motion .word, .hero-motion .collage-item { visibility: hidden; }
+.hero-motion:not(.motion-on) :is([data-h], .word, .collage-item) { animation: reveal-failsafe 0s 3s forwards; }
+.hero-motion:not(.motion-on) .hero-intro { animation: intro-failsafe 0.5s 3s forwards; }
+.hero-motion:not(.motion-on) .collage-ring circle { stroke-dashoffset: 0; }
+@keyframes reveal-failsafe { to { visibility: visible; } }
+@keyframes intro-failsafe { to { opacity: 0; visibility: hidden; } }
+
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 20px; padding-top: 48px; padding-bottom: 80px; }
+  .hero-collage { height: 380px; }
+  .collage-item-4 { display: none; }
+}
+@media (max-width: 560px) {
+  .hero-collage { height: 300px; }
+  .hero-lede { font-size: 15.5px; }
+  .hero-badges { gap: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow, .hero-scroll-hint i { animation: none; }
+}
+
+/* ==== Accueil : bandeau chiffres + ligne du processus ==== */
+.stats-band b { font-variant-numeric: tabular-nums; }
+@media (max-width: 780px) { .stats-band { grid-template-columns: repeat(2, 1fr) !important; row-gap: 28px !important; } }
+.steps-track { position: relative; }
+.steps-line { position: absolute; top: 29px; left: 12.5%; right: 12.5%; height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
+.steps-line-fill { display: block; width: 100%; height: 100%; background: linear-gradient(90deg, var(--sage), var(--brass)); transform-origin: left; }
+.steps-track .step-num { position: relative; z-index: 1; box-shadow: 0 0 0 8px var(--card); }
+@media (max-width: 780px) { .steps-line { display: none; } }
 
 /* ==== Catégories phares (accueil / boutique) ==== */
 .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
