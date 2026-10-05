@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { track } from "@/lib/analytics";
 
 export type CartItem = { slug: string; variant: string; price: number; qty: number };
 
@@ -46,6 +47,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [wishlist, hydrated]);
 
   function addToCart(item: CartItem) {
+    track("ajout-panier", { produit: item.slug, format: item.variant, prix: item.price });
     setCart((prev) => {
       const existing = prev.find((c) => c.slug === item.slug && c.variant === item.variant);
       if (existing) {

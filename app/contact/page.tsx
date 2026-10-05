@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { BRAND } from "@/lib/brand";
 import { whatsappUrl } from "@/lib/whatsapp";
+import { track } from "@/lib/analytics";
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
@@ -27,6 +28,7 @@ export default function ContactPage() {
                 const data = new FormData(e.currentTarget);
                 const email = String(data.get("email") || "");
                 const text = `Bonjour ${BRAND.name}, je suis ${data.get("name")}${email ? ` (${email})` : ""}.\n\n${data.get("message")}`;
+                track("contact-whatsapp");
                 window.open(whatsappUrl(text), "_blank", "noopener");
                 setSent(true);
               }}
