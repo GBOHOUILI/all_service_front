@@ -24,7 +24,7 @@ export const PRODUCTS: Product[] = [
     name: "Bouquet Romantique",
     cat: "bouquets",
     events: ["saint-valentin", "anniversaire"],
-    base: 65,
+    base: 42_500,
     desc: "Un bouquet délicat aux tons pastel pour des moments tendres.",
     long: "Composé à la main le jour de votre commande, ce bouquet marie roses pastel, renoncules et fleurs de saison choisies une à une pour leur nuance et leur tenue. Sa palette douce (blush, ivoire et vert tendre) en fait une déclaration discrète mais sincère, aussi bien pour surprendre un être cher que pour accompagner une déclaration.",
     art: "stems",
@@ -39,7 +39,7 @@ export const PRODUCTS: Product[] = [
     name: "Bouquet Élégance",
     cat: "bouquets",
     events: ["mariage", "remerciement"],
-    base: 70,
+    base: 46_000,
     desc: "Une composition raffinée, fraîcheur et pureté en parfaite harmonie.",
     long: "Un jeu de blancs et de verts tendres, pensé pour les grandes occasions. Roses David Austin, eucalyptus et pivoines de saison composent une silhouette aérienne, taillée pour sublimer une table de réception comme un geste de remerciement.",
     art: "stems",
@@ -54,7 +54,7 @@ export const PRODUCTS: Product[] = [
     name: "Bouquet Douceur",
     cat: "vase",
     events: ["naissance", "anniversaire"],
-    base: 60,
+    base: 39_500,
     desc: "Harmonie de fleurs pâles et de feuillages pour une touche de douceur.",
     long: "Présentée en vase, cette composition tout en légèreté associe fleurs blanches et branchages délicats. Livrée directement dans son contenant, elle ne demande qu'à être posée, idéale pour une naissance ou un simple geste d'attention.",
     art: "vase",
@@ -69,7 +69,7 @@ export const PRODUCTS: Product[] = [
     name: "Centre de table Nature",
     cat: "couronnes",
     events: ["mariage"],
-    base: 85,
+    base: 56_000,
     desc: "Une composition verdoyante pour sublimer vos tables.",
     long: "Pensé pour les tables de réception, ce centre de table associe feuillages structurés et touches florales discrètes. Sa forme basse et allongée facilite la conversation entre convives tout en habillant la table du sol au plafond de verdure.",
     art: "wreath",
@@ -84,7 +84,7 @@ export const PRODUCTS: Product[] = [
     name: "Bouquet Harmonie",
     cat: "bouquets",
     events: ["anniversaire", "fete-des-meres"],
-    base: 68,
+    base: 44_500,
     desc: "Équilibre parfait entre fleurs pastel et touches de verdure.",
     long: "Un équilibre subtil entre rondeur des fleurs pastel et légèreté de la verdure. Une création généreuse et intemporelle, parfaite pour marquer un anniversaire ou célébrer une maman.",
     art: "stems",
@@ -99,7 +99,7 @@ export const PRODUCTS: Product[] = [
     name: "Bouquet Fraîcheur",
     cat: "vase",
     events: ["remerciement", "naissance"],
-    base: 62,
+    base: 40_500,
     desc: "Un bouquet lumineux, idéal pour égayer chaque journée.",
     long: "Vif et lumineux, ce bouquet en vase apporte une note de fraîcheur immédiate à n'importe quel intérieur. Tons jaunes, blancs et verts pour une composition qui illumine un bureau, une entrée ou une table de cuisine.",
     art: "vase",
@@ -114,7 +114,7 @@ export const PRODUCTS: Product[] = [
     name: "Couronne Florale",
     cat: "couronnes",
     events: ["deuil", "mariage"],
-    base: 90,
+    base: 59_000,
     desc: "Couronne raffinée pour célébrer chaque instant important.",
     long: "Réalisée à la main avec un soin particulier, cette couronne accompagne aussi bien les moments de recueillement que les célébrations. Structure renforcée, fleurs et feuillages nobles sélectionnés pour leur tenue.",
     art: "wreath",
@@ -129,7 +129,7 @@ export const PRODUCTS: Product[] = [
     name: "Cadeau Floral",
     cat: "plantes",
     events: ["remerciement", "anniversaire"],
-    base: 55,
+    base: 36_000,
     desc: "Une attention délicate alliant beauté et émotion.",
     long: "Une plante fleurie présentée dans un cache-pot en céramique brute, pensée comme un cadeau durable. Contrairement à un bouquet, elle continue d'accompagner son destinataire bien après le jour J.",
     art: "pot",
@@ -152,7 +152,7 @@ export const PRODUCTS: Product[] = [
       "saint-valentin",
       "remerciement",
     ],
-    base: 75,
+    base: 49_000,
     desc: "Une création unique, imaginée avec vous.",
     long: "Une composition pensée avec vous, selon vos couleurs, votre budget et l'occasion à célébrer.",
     art: "stems",
@@ -225,10 +225,10 @@ export const EVENTS = [
 ] as const;
 
 export const VARIANT_OFFSETS = [
-  { label: "Petit", delta: -20 },
+  { label: "Petit", delta: -13_000 },
   { label: "Moyen", delta: 0 },
-  { label: "Grand", delta: 25 },
-  { label: "Luxe", delta: 65 },
+  { label: "Grand", delta: 16_500 },
+  { label: "Luxe", delta: 42_500 },
   { label: "Sur-mesure", delta: null as number | null },
 ];
 
@@ -417,16 +417,16 @@ export const GALLERY_CATS = [
 
 export type Customer = { id: string; name: string; email: string; phone: string; city: string; orders: number; spent: number; last: string; status: "Actif" | "Inactif" };
 export const CUSTOMERS: Customer[] = [
-  { id: "CL-01", name: "Camille Rousseau", email: "camille.rousseau@mail.fr", phone: "06 12 34 56 78", city: "Paris 11e", orders: 6, spent: 412, last: "12 août 2026", status: "Actif" },
-  { id: "CL-02", name: "Julien Ferreira", email: "julien.ferreira@mail.fr", phone: "06 98 76 54 32", city: "Paris 15e", orders: 2, spent: 145, last: "2 juillet 2026", status: "Actif" },
-  { id: "CL-03", name: "Sofia Marchetti", email: "sofia.marchetti@mail.fr", phone: "07 44 55 66 12", city: "Boulogne-Billancourt", orders: 9, spent: 730, last: "15 août 2026", status: "Actif" },
+  { id: "CL-01", name: "Camille Rousseau", email: "camille.rousseau@mail.fr", phone: "06 12 34 56 78", city: "Paris 11e", orders: 6, spent: 270_000, last: "12 août 2026", status: "Actif" },
+  { id: "CL-02", name: "Julien Ferreira", email: "julien.ferreira@mail.fr", phone: "06 98 76 54 32", city: "Paris 15e", orders: 2, spent: 95_000, last: "2 juillet 2026", status: "Actif" },
+  { id: "CL-03", name: "Sofia Marchetti", email: "sofia.marchetti@mail.fr", phone: "07 44 55 66 12", city: "Boulogne-Billancourt", orders: 9, spent: 479_000, last: "15 août 2026", status: "Actif" },
 ];
 
 export type OrderItem = { slug: string; variant: string; qty: number; price: number };
 export type Order = { id: string; customerId: string; customerName: string; date: string; items: OrderItem[]; delivery: number; payment: string; status: string; address: string };
 export const ORDERS: Order[] = [
-  { id: "AS-104822", customerId: "CL-01", customerName: "Camille Rousseau", date: "18 août 2026", items: [{ slug: "bouquet-romantique", variant: "Moyen", qty: 1, price: 65 }], delivery: 9, payment: "En attente", status: "Nouvelle", address: "14 rue de Charonne, 75011 Paris" },
-  { id: "AS-104810", customerId: "CL-03", customerName: "Sofia Marchetti", date: "17 août 2026", items: [{ slug: "couronne-florale", variant: "Grand", qty: 1, price: 115 }], delivery: 9, payment: "En attente", status: "Confirmée", address: "8 avenue Jean Jaurès, 92100 Boulogne-Billancourt" },
+  { id: "AS-104822", customerId: "CL-01", customerName: "Camille Rousseau", date: "18 août 2026", items: [{ slug: "bouquet-romantique", variant: "Moyen", qty: 1, price: 42_500 }], delivery: 2_000, payment: "En attente", status: "Nouvelle", address: "14 rue de Charonne, 75011 Paris" },
+  { id: "AS-104810", customerId: "CL-03", customerName: "Sofia Marchetti", date: "17 août 2026", items: [{ slug: "couronne-florale", variant: "Grand", qty: 1, price: 75_500 }], delivery: 2_000, payment: "En attente", status: "Confirmée", address: "8 avenue Jean Jaurès, 92100 Boulogne-Billancourt" },
 ];
 export const ORDER_STATUSES = ["Nouvelle", "Confirmée", "En préparation", "Expédiée", "Livrée", "Annulée"];
 

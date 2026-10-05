@@ -11,7 +11,7 @@ export default function PanierPage() {
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", phone: "", email: "", address: "", city: "Paris", zip: "", date: "", message: "" });
 
-  const shipping = cart.length ? 9 : 0;
+  const shipping = cart.length ? 2_000 : 0;
   const total = cartTotal + shipping;
 
   function handleSubmit(e: React.FormEvent) {
