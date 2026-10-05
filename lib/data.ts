@@ -426,7 +426,7 @@ export type OrderItem = { slug: string; variant: string; qty: number; price: num
 export type Order = { id: string; customerId: string; customerName: string; date: string; items: OrderItem[]; delivery: number; payment: string; status: string; address: string };
 export const ORDERS: Order[] = [
   { id: "AS-104822", customerId: "CL-01", customerName: "Camille Rousseau", date: "18 août 2026", items: [{ slug: "bouquet-romantique", variant: "Moyen", qty: 1, price: 42_500 }], delivery: 2_000, payment: "En attente", status: "Nouvelle", address: "Haie Vive, Cotonou" },
-  { id: "AS-104810", customerId: "CL-03", customerName: "Sofia Marchetti", date: "17 août 2026", items: [{ slug: "couronne-florale", variant: "Grand", qty: 1, price: 75_500 }], delivery: 2_000, payment: "En attente", status: "Confirmée", address: "Quartier Ouando, Porto-Novo" },
+  { id: "AS-104810", customerId: "CL-03", customerName: "Sofia Marchetti", date: "17 août 2026", items: [{ slug: "couronne-florale", variant: "Grand", qty: 1, price: 75_500 }], delivery: 0, payment: "En attente", status: "Confirmée", address: "Quartier Ouando, Porto-Novo" },
 ];
 export const ORDER_STATUSES = ["Nouvelle", "Confirmée", "En préparation", "Expédiée", "Livrée", "Annulée"];
 
@@ -531,6 +531,11 @@ export function findProduct(slug: string) {
 }
 export function relatedProducts(product: Product, max = 4) {
   return PRODUCTS.filter((p) => !p.hidden && p.slug !== product.slug && p.cat === product.cat).slice(0, max);
+}
+export const DELIVERY_FEE = 2_000;
+export const FREE_DELIVERY_FROM = 60_000;
+export function shippingFor(subtotal: number) {
+  return subtotal === 0 || subtotal >= FREE_DELIVERY_FROM ? 0 : DELIVERY_FEE;
 }
 export function orderTotal(o: Order) {
   return o.items.reduce((s, i) => s + i.price * i.qty, 0) + o.delivery;

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/components/CartContext";
-import { findProduct, fmt } from "@/lib/data";
+import { findProduct, fmt, shippingFor, FREE_DELIVERY_FROM } from "@/lib/data";
 import { BRAND } from "@/lib/brand";
 
 export default function PanierPage() {
@@ -12,7 +12,7 @@ export default function PanierPage() {
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", phone: "", email: "", address: "", city: BRAND.city, zip: "", date: "", message: "" });
 
-  const shipping = cart.length ? 2_000 : 0;
+  const shipping = shippingFor(cartTotal);
   const total = cartTotal + shipping;
 
   function handleSubmit(e: React.FormEvent) {
@@ -148,8 +148,13 @@ function SummaryRows({ subtotal, shipping, total }: { subtotal: number; shipping
         <span>Sous-total</span><span>{fmt(subtotal)}</span>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, marginBottom: 10, color: "var(--ink-soft)" }}>
-        <span>Livraison</span><span>{fmt(shipping)}</span>
+        <span>Livraison</span><span>{shipping === 0 && subtotal > 0 ? "Offerte" : fmt(shipping)}</span>
       </div>
+      {subtotal > 0 && subtotal < FREE_DELIVERY_FROM && (
+        <p style={{ fontSize: 12.5, color: "var(--sage)", margin: "0 0 12px" }}>
+          Plus que {fmt(FREE_DELIVERY_FROM - subtotal)} pour la livraison offerte.
+        </p>
+      )}
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 16, fontWeight: 700, color: "var(--forest)", borderTop: "1px solid var(--line)", paddingTop: 12 }}>
         <span>Total</span><span>{fmt(total)}</span>
       </div>
