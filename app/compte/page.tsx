@@ -35,7 +35,7 @@ export default function ComptePage() {
           </div>
           <div>
             <h2 style={{ margin: 0 }}>Camille Rousseau</h2>
-            <p style={{ margin: "2px 0 0", color: "var(--ink-soft)", fontSize: 13.5 }}>camille.rousseau@mail.fr</p>
+            <p style={{ margin: "2px 0 0", color: "var(--ink-soft)", fontSize: 13.5 }}>camille.rousseau@gmail.com</p>
           </div>
         </div>
 

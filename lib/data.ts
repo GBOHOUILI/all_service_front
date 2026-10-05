@@ -417,16 +417,16 @@ export const GALLERY_CATS = [
 
 export type Customer = { id: string; name: string; email: string; phone: string; city: string; orders: number; spent: number; last: string; status: "Actif" | "Inactif" };
 export const CUSTOMERS: Customer[] = [
-  { id: "CL-01", name: "Camille Rousseau", email: "camille.rousseau@mail.fr", phone: "06 12 34 56 78", city: "Paris 11e", orders: 6, spent: 270_000, last: "12 août 2026", status: "Actif" },
-  { id: "CL-02", name: "Julien Ferreira", email: "julien.ferreira@mail.fr", phone: "06 98 76 54 32", city: "Paris 15e", orders: 2, spent: 95_000, last: "2 juillet 2026", status: "Actif" },
-  { id: "CL-03", name: "Sofia Marchetti", email: "sofia.marchetti@mail.fr", phone: "07 44 55 66 12", city: "Boulogne-Billancourt", orders: 9, spent: 479_000, last: "15 août 2026", status: "Actif" },
+  { id: "CL-01", name: "Camille Rousseau", email: "camille.rousseau@gmail.com", phone: "+229 01 97 12 34 56", city: "Cotonou", orders: 6, spent: 270_000, last: "12 août 2026", status: "Actif" },
+  { id: "CL-02", name: "Julien Ferreira", email: "julien.ferreira@gmail.com", phone: "+229 01 96 98 76 54", city: "Abomey-Calavi", orders: 2, spent: 95_000, last: "2 juillet 2026", status: "Actif" },
+  { id: "CL-03", name: "Sofia Marchetti", email: "sofia.marchetti@gmail.com", phone: "+229 01 95 44 55 66", city: "Porto-Novo", orders: 9, spent: 479_000, last: "15 août 2026", status: "Actif" },
 ];
 
 export type OrderItem = { slug: string; variant: string; qty: number; price: number };
 export type Order = { id: string; customerId: string; customerName: string; date: string; items: OrderItem[]; delivery: number; payment: string; status: string; address: string };
 export const ORDERS: Order[] = [
-  { id: "AS-104822", customerId: "CL-01", customerName: "Camille Rousseau", date: "18 août 2026", items: [{ slug: "bouquet-romantique", variant: "Moyen", qty: 1, price: 42_500 }], delivery: 2_000, payment: "En attente", status: "Nouvelle", address: "14 rue de Charonne, 75011 Paris" },
-  { id: "AS-104810", customerId: "CL-03", customerName: "Sofia Marchetti", date: "17 août 2026", items: [{ slug: "couronne-florale", variant: "Grand", qty: 1, price: 75_500 }], delivery: 2_000, payment: "En attente", status: "Confirmée", address: "8 avenue Jean Jaurès, 92100 Boulogne-Billancourt" },
+  { id: "AS-104822", customerId: "CL-01", customerName: "Camille Rousseau", date: "18 août 2026", items: [{ slug: "bouquet-romantique", variant: "Moyen", qty: 1, price: 42_500 }], delivery: 2_000, payment: "En attente", status: "Nouvelle", address: "Haie Vive, Cotonou" },
+  { id: "AS-104810", customerId: "CL-03", customerName: "Sofia Marchetti", date: "17 août 2026", items: [{ slug: "couronne-florale", variant: "Grand", qty: 1, price: 75_500 }], delivery: 2_000, payment: "En attente", status: "Confirmée", address: "Quartier Ouando, Porto-Novo" },
 ];
 export const ORDER_STATUSES = ["Nouvelle", "Confirmée", "En préparation", "Expédiée", "Livrée", "Annulée"];
 
@@ -512,13 +512,13 @@ export const REVIEWS: Review[] = [
 
 export type AdminMessage = { id: number; name: string; email: string; subject: string; date: string; status: "Non lu" | "Lu" | "Répondu"; message: string };
 export const ADMIN_MESSAGES: AdminMessage[] = [
-  { id: 1, name: "Camille Rousseau", email: "camille.rousseau@mail.fr", subject: "Question sur une commande sur-mesure", date: "18 août 2026", status: "Non lu", message: "Bonjour, je souhaiterais une composition sur-mesure pour un mariage en septembre, dans des tons terracotta." },
-  { id: 2, name: "Hugo Vasseur", email: "hugo.vasseur@mail.fr", subject: "Retard de livraison", date: "17 août 2026", status: "Lu", message: "Ma commande devait être livrée hier à 14h et je n'ai encore rien reçu." },
+  { id: 1, name: "Camille Rousseau", email: "camille.rousseau@gmail.com", subject: "Question sur une commande sur-mesure", date: "18 août 2026", status: "Non lu", message: "Bonjour, je souhaiterais une composition sur-mesure pour un mariage en septembre, dans des tons terracotta." },
+  { id: 2, name: "Hugo Vasseur", email: "hugo.vasseur@gmail.com", subject: "Retard de livraison", date: "17 août 2026", status: "Lu", message: "Ma commande devait être livrée hier à 14h et je n'ai encore rien reçu." },
 ];
 
 export const ADMIN_USERS = [
-  { name: "Aïcha Bamba", email: "aicha@allservices.fr", role: "Super Admin", status: "Actif", last: "Aujourd'hui, 09:12" },
-  { name: "Mehdi Alaoui", email: "mehdi@allservices.fr", role: "Administrateur", status: "Actif", last: "Hier, 18:40" },
+  { name: "Aïcha Bamba", email: "aicha@allservices.bj", role: "Super Admin", status: "Actif", last: "Aujourd'hui, 09:12" },
+  { name: "Mehdi Alaoui", email: "mehdi@allservices.bj", role: "Administrateur", status: "Actif", last: "Hier, 18:40" },
 ];
 
 export const WEEK_SALES = [
