@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { BRAND } from "@/lib/brand";
+import { whatsappUrl } from "@/lib/whatsapp";
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
@@ -16,20 +17,24 @@ export default function ContactPage() {
         <div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 50 }}>
           {sent ? (
             <div className="empty-state" style={{ padding: "40px 0" }}>
-              <h3>Message envoyé</h3>
-              <p>Nous revenons vers vous sous 24h.</p>
+              <h3>Votre message est prêt dans WhatsApp</h3>
+              <p>Appuyez sur Envoyer dans WhatsApp : nous vous répondons dans la journée.</p>
             </div>
           ) : (
             <form
               onSubmit={(e) => {
                 e.preventDefault();
+                const data = new FormData(e.currentTarget);
+                const email = String(data.get("email") || "");
+                const text = `Bonjour ${BRAND.name}, je suis ${data.get("name")}${email ? ` (${email})` : ""}.\n\n${data.get("message")}`;
+                window.open(whatsappUrl(text), "_blank", "noopener");
                 setSent(true);
               }}
             >
-              <div className="form-field"><label>Nom</label><input required placeholder="Votre nom" /></div>
-              <div className="form-field"><label>Email</label><input required type="email" placeholder="Votre email" /></div>
-              <div className="form-field"><label>Message</label><textarea required placeholder="Votre message…" /></div>
-              <button className="btn btn-primary" type="submit">Envoyer</button>
+              <div className="form-field"><label>Nom</label><input name="name" required placeholder="Votre nom" /></div>
+              <div className="form-field"><label>Email (facultatif)</label><input name="email" type="email" placeholder="Votre email" /></div>
+              <div className="form-field"><label>Message</label><textarea name="message" required placeholder="Votre message…" /></div>
+              <button className="btn btn-primary" type="submit">Envoyer sur WhatsApp</button>
               <p style={{ fontSize: 12, color: "var(--ink-soft)", marginTop: 14 }}>
                 🔒 Vos informations sont confidentielles. Voir notre{" "}
                 <a href="/confidentialite" style={{ color: "var(--forest)", textDecoration: "underline" }}>politique de confidentialité</a>.

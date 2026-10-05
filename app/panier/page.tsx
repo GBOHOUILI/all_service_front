@@ -5,11 +5,13 @@ import Link from "next/link";
 import { useCart } from "@/components/CartContext";
 import { findProduct, fmt, shippingFor, FREE_DELIVERY_FROM } from "@/lib/data";
 import { BRAND } from "@/lib/brand";
+import { orderMessage, whatsappUrl } from "@/lib/whatsapp";
 
 export default function PanierPage() {
   const { cart, removeFromCart, setQty, cartTotal, clearCart } = useCart();
   const [step, setStep] = useState<"panier" | "livraison" | "confirm">("panier");
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
+  const [orderLink, setOrderLink] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", phone: "", email: "", address: "", city: BRAND.city, zip: "", date: "", message: "" });
 
   const shipping = shippingFor(cartTotal);
@@ -17,12 +19,22 @@ export default function PanierPage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // DÉMO : pas de paiement en ligne pour l'instant. On enregistre la
-    // demande de commande et l'équipe recontacte le client pour le
-    // règlement. Quand le paiement sera prêt, cette étape enverra vers
-    // /panier/paiement à la place.
+    // No online payment yet: the order is sent to the shop on WhatsApp and
+    // settled on delivery or by Mobile Money once the shop confirms it.
     const number = "AS-" + Math.floor(100000 + Math.random() * 899999);
+    const link = whatsappUrl(
+      orderMessage({
+        ref: number,
+        items: cart,
+        subtotal: cartTotal,
+        shipping,
+        customer: { ...form, landmark: form.zip },
+      })
+    );
+    // Opened inside the submit handler so popup blockers treat it as user-initiated.
+    window.open(link, "_blank", "noopener");
     setOrderNumber(number);
+    setOrderLink(link);
     setStep("confirm");
     clearCart();
   }
@@ -32,12 +44,20 @@ export default function PanierPage() {
       <section className="section">
         <div className="wrap">
           <div className="empty-state">
-            <h3>Merci ! Votre demande de commande est enregistrée</h3>
+            <h3>Plus qu&apos;une étape : envoyez votre commande sur WhatsApp</h3>
             <p>
-              Numéro de référence <b style={{ color: "var(--forest)" }}>{orderNumber}</b>. Notre équipe vous
-              recontacte sous 24h pour confirmer les détails et le règlement. Le paiement en ligne arrive bientôt.
+              Référence <b style={{ color: "var(--forest)" }}>{orderNumber}</b>. Votre commande est pré-remplie dans
+              WhatsApp : appuyez sur Envoyer pour la transmettre à l&apos;atelier. Nous vous confirmons la disponibilité et
+              le règlement (à la livraison ou par Mobile Money) dans la journée.
             </p>
-            <Link href="/boutique" className="btn btn-primary">Continuer mes achats</Link>
+            <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+              {orderLink && (
+                <a href={orderLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                  Ouvrir WhatsApp
+                </a>
+              )}
+              <Link href="/boutique" className="btn btn-outline">Continuer mes achats</Link>
+            </div>
           </div>
         </div>
       </section>
@@ -73,7 +93,7 @@ export default function PanierPage() {
                 <div className="form-field"><label>Nom complet</label><input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} /></div>
                 <div className="form-field"><label>Téléphone</label><input required value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} /></div>
               </div>
-              <div className="form-field"><label>Email</label><input required type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></div>
+              <div className="form-field"><label>Email (facultatif)</label><input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} /></div>
               <div className="form-field"><label>Adresse de livraison</label><input required value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} /></div>
               <div className="form-row2">
                 <div className="form-field"><label>Ville</label><input required value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} /></div>
@@ -81,9 +101,10 @@ export default function PanierPage() {
               </div>
               <div className="form-field"><label>Date souhaitée</label><input required type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} /></div>
               <div className="form-field"><label>Message (facultatif)</label><textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} /></div>
-              <button type="submit" className="btn btn-primary btn-block">Envoyer ma demande de commande</button>
+              <button type="submit" className="btn btn-primary btn-block">Commander sur WhatsApp</button>
               <p style={{ fontSize: 12, color: "var(--ink-soft)", marginTop: 12 }}>
-                Le paiement en ligne n&apos;est pas encore disponible : nous vous recontactons pour le finaliser.
+                Votre commande s&apos;ouvre dans WhatsApp, prête à envoyer. Règlement à la livraison ou par Mobile Money
+                après confirmation de l&apos;atelier.
               </p>
             </form>
             <div className="card" style={{ padding: 24, position: "sticky", top: 100, height: "fit-content" }}>

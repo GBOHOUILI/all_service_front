@@ -17,6 +17,8 @@ export const BRAND = {
   country: "Bénin",
   address: "Cotonou, Bénin",
   phone: "+229 01 90 00 00 00",
+  // Numéro WhatsApp qui reçoit les commandes : indicatif + numéro, chiffres uniquement.
+  whatsapp: "2290190000000",
   email: "bonjour@allservices.bj",
   currency: "FCFA",
   // Photos du hero (intro, collage, portail). La première est celle qui passe en plein écran,
