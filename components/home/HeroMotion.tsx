@@ -150,6 +150,7 @@ export default function HeroMotion({ avg }: { avg: string }) {
               gsap.set(items[0], { autoAlpha: 1 });
               gsap.set(intro, { display: "none" });
               document.documentElement.style.overflow = "";
+              ScrollTrigger.refresh();
             })
             .addLabel("hero", "land+=0.35");
         } else {
