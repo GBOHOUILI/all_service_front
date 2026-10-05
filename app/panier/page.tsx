@@ -34,7 +34,7 @@ export default function PanierPage() {
             <h3>Merci ! Votre demande de commande est enregistrée</h3>
             <p>
               Numéro de référence <b style={{ color: "var(--forest)" }}>{orderNumber}</b>. Notre équipe vous
-              recontacte sous 24h pour confirmer les détails et le règlement — le paiement en ligne arrive bientôt.
+              recontacte sous 24h pour confirmer les détails et le règlement. Le paiement en ligne arrive bientôt.
             </p>
             <Link href="/boutique" className="btn btn-primary">Continuer mes achats</Link>
           </div>

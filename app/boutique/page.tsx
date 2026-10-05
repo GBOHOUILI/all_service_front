@@ -94,7 +94,7 @@ export default async function BoutiquePage({
         </div>
       </section>
 
-      {/* NOUVELLE SECTION — engagement qualité */}
+      {/* NOUVELLE SECTION : engagement qualité */}
       <section className="section" style={{ background: "var(--card)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
         <div className="wrap" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24, textAlign: "center" }}>
           <div>
@@ -114,7 +114,7 @@ export default async function BoutiquePage({
 
       <Testimonials />
 
-      {/* NOUVELLE SECTION — CTA sur-mesure */}
+      {/* NOUVELLE SECTION : CTA sur-mesure */}
       <section className="section">
         <div className="wrap" style={{ background: "linear-gradient(135deg, var(--ivory), var(--card))", border: "1px solid var(--line)", borderRadius: 24, padding: 44, textAlign: "center" }}>
           <span className="eyebrow">Vous ne trouvez pas votre bonheur ?</span>

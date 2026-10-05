@@ -40,10 +40,10 @@ export default async function ProductPage({
               </div>
               <div className="mini-gallery">
                 <div className="media-frame">
-                  <Image src={gallery[1]} alt={`${product.name} — détail 1`} fill sizes="25vw" style={{ objectFit: "cover" }} />
+                  <Image src={gallery[1]} alt={`${product.name}, détail 1`} fill sizes="25vw" style={{ objectFit: "cover" }} />
                 </div>
                 <div className="media-frame">
-                  <Image src={gallery[2]} alt={`${product.name} — détail 2`} fill sizes="25vw" style={{ objectFit: "cover" }} />
+                  <Image src={gallery[2]} alt={`${product.name}, détail 2`} fill sizes="25vw" style={{ objectFit: "cover" }} />
                 </div>
               </div>
             </div>
@@ -53,7 +53,7 @@ export default async function ProductPage({
         </div>
       </section>
 
-      {/* NOUVELLE SECTION — pourquoi cette composition */}
+      {/* NOUVELLE SECTION : pourquoi cette composition */}
       <section className="section" style={{ background: "var(--card)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
         <div className="wrap">
           <h2 className="center" style={{ fontSize: 26, marginBottom: 30 }}>Pourquoi choisir cette composition</h2>
@@ -80,13 +80,13 @@ export default async function ProductPage({
         </div>
       </section>
 
-      {/* NOUVELLE SECTION — informations livraison détaillées */}
+      {/* NOUVELLE SECTION : informations livraison détaillées */}
       <section className="section">
         <div className="wrap" style={{ maxWidth: 780, margin: "0 auto" }}>
           <h2 style={{ fontSize: 24, marginBottom: 16 }}>Livraison &amp; délais</h2>
           <p style={{ fontSize: 14.5, color: "var(--ink-soft)", lineHeight: 1.7, marginBottom: 14 }}>
             {product.name} est composé sur commande, généralement livré sous 24 à 48h sur Paris et sa proche banlieue.
-            Vous choisissez le créneau de livraison au moment du paiement — domicile, lieu de travail ou adresse d&apos;un proche.
+            Vous choisissez le créneau de livraison au moment du paiement : domicile, lieu de travail ou adresse d&apos;un proche.
           </p>
           <p style={{ fontSize: 14.5, color: "var(--ink-soft)", lineHeight: 1.7 }}>
             Besoin d&apos;une livraison plus rapide ou d&apos;un ajustement de la composition ? Notre atelier reste
@@ -95,7 +95,7 @@ export default async function ProductPage({
         </div>
       </section>
 
-      {/* NOUVELLE SECTION — produits associés */}
+      {/* NOUVELLE SECTION : produits associés */}
       {related.length > 0 && (
         <section className="section">
           <div className="wrap">
@@ -110,7 +110,7 @@ export default async function ProductPage({
         </section>
       )}
 
-      {/* NOUVELLE SECTION — témoignages */}
+      {/* NOUVELLE SECTION : témoignages */}
       <Testimonials title="Ils ont commandé cette composition" />
     </>
   );

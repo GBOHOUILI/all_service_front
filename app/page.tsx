@@ -12,7 +12,7 @@ export default function HomePage() {
 
   return (
     <>
-      {/* HERO — vidéo de fleurs en fond, pleine page */}
+      {/* HERO : vidéo de fleurs en fond, pleine page */}
       <section className="hero-full">
         <HeroVideo />
         <div className="hero-media-overlay" />
@@ -23,7 +23,7 @@ export default function HomePage() {
             </h1>
             <p className="lede" style={{ margin: "0 0 28px", color: "rgba(255,255,255,0.85)", textAlign: "left" }}>
               Chaque bouquet est assemblé à la main dans notre atelier parisien, à partir de fleurs de saison
-              choisies une à une, pour célébrer vos instants les plus précieux — d&apos;un simple geste du quotidien
+              choisies une à une, pour célébrer vos instants les plus précieux, d&apos;un simple geste du quotidien
               aux grandes occasions qui marquent une vie.
             </p>
             <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
@@ -39,7 +39,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* NOUVELLE SECTION — catégories phares */}
+      {/* NOUVELLE SECTION : catégories phares */}
       <section className="section">
         <div className="wrap">
           <div className="center" style={{ marginBottom: 30 }}>
@@ -79,7 +79,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* NOUVELLE SECTION — comment ça marche */}
+      {/* NOUVELLE SECTION : comment ça marche */}
       <section className="section" style={{ background: "var(--card)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
         <div className="wrap">
           <div className="center" style={{ marginBottom: 36 }}>
@@ -122,10 +122,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* NOUVELLE SECTION — témoignages */}
+      {/* NOUVELLE SECTION : témoignages */}
       <Testimonials />
 
-      {/* NOUVELLE SECTION — derniers conseils */}
+      {/* NOUVELLE SECTION : derniers conseils */}
       <section className="section">
         <div className="wrap">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 26, flexWrap: "wrap", gap: 14 }}>
@@ -166,7 +166,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* NOUVELLE SECTION — newsletter */}
+      {/* NOUVELLE SECTION : newsletter */}
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="wrap center">
           <span className="eyebrow">Restons en contact</span>

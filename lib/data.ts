@@ -24,7 +24,7 @@ export const PRODUCTS: Product[] = [
     events: ["saint-valentin", "anniversaire"],
     base: 65,
     desc: "Un bouquet délicat aux tons pastel pour des moments tendres.",
-    long: "Composé à la main le jour de votre commande, ce bouquet marie roses pastel, renoncules et fleurs de saison choisies une à une pour leur nuance et leur tenue. Sa palette douce — blush, ivoire et vert tendre — en fait une déclaration discrète mais sincère, aussi bien pour surprendre un être cher que pour accompagner une déclaration.",
+    long: "Composé à la main le jour de votre commande, ce bouquet marie roses pastel, renoncules et fleurs de saison choisies une à une pour leur nuance et leur tenue. Sa palette douce (blush, ivoire et vert tendre) en fait une déclaration discrète mais sincère, aussi bien pour surprendre un être cher que pour accompagner une déclaration.",
     art: "stems",
     accent: "var(--blush)",
     care: "bouquet",
@@ -54,7 +54,7 @@ export const PRODUCTS: Product[] = [
     events: ["naissance", "anniversaire"],
     base: 60,
     desc: "Harmonie de fleurs pâles et de feuillages pour une touche de douceur.",
-    long: "Présentée en vase, cette composition tout en légèreté associe fleurs blanches et branchages délicats. Livrée directement dans son contenant, elle ne demande qu'à être posée — idéale pour une naissance ou un simple geste d'attention.",
+    long: "Présentée en vase, cette composition tout en légèreté associe fleurs blanches et branchages délicats. Livrée directement dans son contenant, elle ne demande qu'à être posée, idéale pour une naissance ou un simple geste d'attention.",
     art: "vase",
     accent: "var(--sage)",
     care: "vase",
@@ -163,7 +163,7 @@ export const PRODUCTS: Product[] = [
 ];
 
 // Génère une petite galerie [image principale, +2 variantes] à partir
-// du chemin de l'image principale — remplace juste les 3 fichiers
+// du chemin de l'image principale : remplace juste les 3 fichiers
 // correspondants dans /public (ou passe 3 URLs si tu préfères).
 export function productGallery(p: Product): string[] {
   const match = p.image.match(/^(.*)(\.[a-zA-Z]+)$/);
@@ -287,7 +287,7 @@ export const BLOG = [
       "Un petit guide pour choisir la composition la plus juste, quel que soit le moment que vous célébrez.",
     html: `<p>Chaque occasion appelle une intention florale différente.</p>
     <h2>Pour une naissance</h2>
-    <p>Privilégiez les teintes douces — blanc, vert tendre, rose pâle.</p>
+    <p>Privilégiez les teintes douces : blanc, vert tendre, rose pâle.</p>
     <h2>Pour un mariage</h2>
     <p>Les compositions structurées s'accordent aux grandes tables de réception.</p>
     <h2>Pour un hommage</h2>

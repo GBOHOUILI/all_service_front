@@ -33,7 +33,7 @@ export default async function ArticlePage({
             dangerouslySetInnerHTML={{ __html: b.html }}
           />
 
-          {/* NOUVELLE SECTION — mot de l'atelier */}
+          {/* NOUVELLE SECTION : mot de l'atelier */}
           <div style={{ marginTop: 40, padding: 24, borderRadius: 16, background: "var(--card)", border: "1px solid var(--line)" }}>
             <h3 style={{ fontSize: 16, marginBottom: 8 }}>Un conseil de notre atelier</h3>
             <p style={{ fontSize: 14, color: "var(--ink-soft)", margin: 0 }}>
@@ -49,7 +49,7 @@ export default async function ArticlePage({
         </div>
       </section>
 
-      {/* NOUVELLE SECTION — articles similaires */}
+      {/* NOUVELLE SECTION : articles similaires */}
       {others.length > 0 && (
         <section className="section" style={{ background: "var(--card)", borderTop: "1px solid var(--line)" }}>
           <div className="wrap">
