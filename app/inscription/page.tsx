@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { BRAND } from "@/lib/brand";
 
 export default function InscriptionPage() {
   const router = useRouter();
@@ -10,7 +11,7 @@ export default function InscriptionPage() {
     <div style={{ minHeight: "calc(100vh - 300px)", display: "flex", alignItems: "center", justifyContent: "center", padding: "60px 20px" }}>
       <div className="card" style={{ width: "100%", maxWidth: 400, padding: "40px 34px" }}>
         <div className="center" style={{ marginBottom: 24 }}>
-          <span style={{ fontFamily: "var(--font-display)", fontSize: 22, color: "var(--forest)" }}>All Services</span>
+          <span style={{ fontFamily: "var(--font-display)", fontSize: 22, color: "var(--forest)" }}>{BRAND.name}</span>
         </div>
         <h1 className="center" style={{ fontSize: 22, marginBottom: 6 }}>Créer un compte</h1>
         <p className="center" style={{ fontSize: 13.5, color: "var(--ink-soft)", marginBottom: 26 }}>

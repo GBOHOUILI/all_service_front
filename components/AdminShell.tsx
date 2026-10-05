@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { BRAND } from "@/lib/brand";
 
 const NAV = [
   { href: "/admin", label: "Tableau de bord" },
@@ -26,9 +27,9 @@ export default function AdminShell({ title, children }: { title: string; childre
     <div style={{ display: "flex", minHeight: "100vh", background: "var(--ivory)" }}>
       <aside style={{ width: 240, flexShrink: 0, background: "var(--forest-deep)", color: "#d9e0d5", display: "flex", flexDirection: "column" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "22px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-          <div style={{ width: 34, height: 34, borderRadius: 10, background: "var(--brass)", color: "#241a0c", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontWeight: 700 }}>AS</div>
+          <div style={{ width: 34, height: 34, borderRadius: 10, background: "var(--brass)", color: "#241a0c", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontWeight: 700 }}>{BRAND.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}</div>
           <div>
-            <div style={{ fontFamily: "var(--font-display)", fontSize: 15, color: "#fff" }}>All Services</div>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 15, color: "#fff" }}>{BRAND.name}</div>
             <div style={{ fontSize: 9, letterSpacing: "0.1em", color: "#93a08d", textTransform: "uppercase" }}>Administration</div>
           </div>
         </div>

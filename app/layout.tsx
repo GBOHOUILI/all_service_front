@@ -3,9 +3,10 @@ import "./globals.css";
 import { CartProvider } from "@/components/CartContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { BRAND } from "@/lib/brand";
 
 export const metadata: Metadata = {
-  title: "All Services | Fleuriste premium & compositions sur-mesure",
+  title: `${BRAND.name} | Fleuriste premium & compositions sur-mesure`,
   description:
     "Compositions florales élégantes, fraîches et sur-mesure. Livraison soignée à Paris.",
 };
