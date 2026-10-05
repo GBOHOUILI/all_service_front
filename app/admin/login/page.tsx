@@ -29,7 +29,7 @@ export default function AdminLoginPage() {
           Connectez-vous pour gérer la boutique.
         </p>
         <form onSubmit={handleSubmit}>
-          <div className="form-field"><label>Adresse email</label><input type="email" required defaultValue="aicha@allservices.fr" /></div>
+          <div className="form-field"><label>Adresse email</label><input type="email" required defaultValue="aicha@allservices.bj" /></div>
           <div className="form-field"><label>Mot de passe</label><input type="password" required defaultValue="demo1234" /></div>
           <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
             {loading ? "Connexion…" : "Se connecter"}

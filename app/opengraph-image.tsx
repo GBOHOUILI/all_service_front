@@ -21,7 +21,7 @@ export default function OpengraphImage() {
         }}
       >
         <div style={{ fontSize: 22, letterSpacing: 8, textTransform: "uppercase", color: "#b8935a", marginBottom: 28 }}>
-          {`${BRAND.tagline} · Paris`}
+          {`${BRAND.tagline} · ${BRAND.city}`}
         </div>
         <div style={{ fontSize: 96, fontWeight: 700, letterSpacing: -3, lineHeight: 1 }}>{BRAND.name}</div>
         <div style={{ width: 140, height: 2, background: "#b8935a", margin: "36px 0" }} />

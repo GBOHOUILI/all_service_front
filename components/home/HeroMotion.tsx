@@ -148,7 +148,7 @@ export default function HeroMotion({ avg }: { avg: string }) {
       <div className="wrap hero-grid">
         <div className="hero-copy">
           <span className="eyebrow hero-eyebrow" data-h>
-            {BRAND.tagline} · Paris
+            {BRAND.tagline} · {BRAND.city}
           </span>
           <h1 className="hero-title">
             {TITLE.map((w, i) => (
@@ -160,7 +160,7 @@ export default function HeroMotion({ avg }: { avg: string }) {
             ))}
           </h1>
           <p className="hero-lede" data-h>
-            Chaque bouquet est assemblé à la main dans notre atelier parisien, à partir de fleurs de saison choisies une
+            Chaque bouquet est assemblé à la main dans notre atelier de {BRAND.city}, à partir de fleurs de saison choisies une
             à une, pour célébrer vos instants les plus précieux.
           </p>
           <div className="hero-ctas" data-h>

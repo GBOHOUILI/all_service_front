@@ -26,7 +26,7 @@ export default function ConnexionPage() {
             router.push("/compte");
           }}
         >
-          <div className="form-field"><label>Adresse email</label><input type="email" required placeholder="vous@exemple.fr" /></div>
+          <div className="form-field"><label>Adresse email</label><input type="email" required placeholder="vous@exemple.com" /></div>
           <div className="form-field"><label>Mot de passe</label><input type="password" required placeholder="••••••••" /></div>
           <button type="submit" className="btn btn-primary btn-block">Se connecter</button>
         </form>

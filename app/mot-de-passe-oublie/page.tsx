@@ -17,7 +17,7 @@ export default function MotDePasseOubliePage() {
           <p className="center" style={{ color: "var(--sage)" }}>Email envoyé (démo).</p>
         ) : (
           <form onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
-            <div className="form-field"><label>Adresse email</label><input type="email" required placeholder="vous@exemple.fr" /></div>
+            <div className="form-field"><label>Adresse email</label><input type="email" required placeholder="vous@exemple.com" /></div>
             <button type="submit" className="btn btn-primary btn-block">Envoyer le lien</button>
           </form>
         )}

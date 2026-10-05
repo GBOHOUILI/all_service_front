@@ -6,18 +6,18 @@ import { CATS, EVENTS, fmt } from "@/lib/data";
 import { useCart } from "@/components/CartContext";
 
 const SIZES = [
-  { label: "Petit", delta: -20 },
+  { label: "Petit", delta: -13_000 },
   { label: "Moyen", delta: 0 },
-  { label: "Grand", delta: 25 },
-  { label: "Luxe", delta: 65 },
+  { label: "Grand", delta: 16_500 },
+  { label: "Luxe", delta: 42_500 },
 ];
 const PALETTES = [
   { key: "pastel", label: "Tons pastel", premium: 0 },
   { key: "blanc-vert", label: "Blanc & vert", premium: 0 },
-  { key: "vives", label: "Couleurs vives", premium: 8 },
-  { key: "automne", label: "Tons automnaux", premium: 5 },
+  { key: "vives", label: "Couleurs vives", premium: 5_000 },
+  { key: "automne", label: "Tons automnaux", premium: 3_500 },
 ];
-const BASE_BY_TYPE: Record<string, number> = { bouquets: 65, vase: 60, couronnes: 90, plantes: 55 };
+const BASE_BY_TYPE: Record<string, number> = { bouquets: 42_500, vase: 39_500, couronnes: 59_000, plantes: 36_000 };
 
 export default function SurMesurePage() {
   const { addToCart } = useCart();
@@ -55,7 +55,7 @@ export default function SurMesurePage() {
               <PillGrid>
                 {SIZES.map((s, i) => (
                   <Pill key={s.label} active={sizeIdx === i} onClick={() => setSizeIdx(i)}>
-                    {s.label}<br /><span style={{ fontSize: 11, opacity: 0.7 }}>{s.delta === 0 ? "Prix standard" : (s.delta > 0 ? "+" : "") + s.delta + " €"}</span>
+                    {s.label}<br /><span style={{ fontSize: 11, opacity: 0.7 }}>{s.delta === 0 ? "Prix standard" : (s.delta > 0 ? "+" : "") + fmt(s.delta)}</span>
                   </Pill>
                 ))}
               </PillGrid>

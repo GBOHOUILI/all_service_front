@@ -4,14 +4,15 @@ import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/components/CartContext";
 import { findProduct, fmt } from "@/lib/data";
+import { BRAND } from "@/lib/brand";
 
 export default function PanierPage() {
   const { cart, removeFromCart, setQty, cartTotal, clearCart } = useCart();
   const [step, setStep] = useState<"panier" | "livraison" | "confirm">("panier");
   const [orderNumber, setOrderNumber] = useState<string | null>(null);
-  const [form, setForm] = useState({ name: "", phone: "", email: "", address: "", city: "Paris", zip: "", date: "", message: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", address: "", city: BRAND.city, zip: "", date: "", message: "" });
 
-  const shipping = cart.length ? 9 : 0;
+  const shipping = cart.length ? 2_000 : 0;
   const total = cartTotal + shipping;
 
   function handleSubmit(e: React.FormEvent) {
@@ -76,7 +77,7 @@ export default function PanierPage() {
               <div className="form-field"><label>Adresse de livraison</label><input required value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} /></div>
               <div className="form-row2">
                 <div className="form-field"><label>Ville</label><input required value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} /></div>
-                <div className="form-field"><label>Code postal</label><input required value={form.zip} onChange={(e) => setForm({ ...form, zip: e.target.value })} /></div>
+                <div className="form-field"><label>Quartier / repère</label><input required value={form.zip} onChange={(e) => setForm({ ...form, zip: e.target.value })} /></div>
               </div>
               <div className="form-field"><label>Date souhaitée</label><input required type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} /></div>
               <div className="form-field"><label>Message (facultatif)</label><textarea value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} /></div>

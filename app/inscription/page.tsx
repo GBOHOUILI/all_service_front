@@ -28,7 +28,7 @@ export default function InscriptionPage() {
             <div className="form-field"><label>Prénom</label><input required placeholder="Camille" /></div>
             <div className="form-field"><label>Nom</label><input required placeholder="Rousseau" /></div>
           </div>
-          <div className="form-field"><label>Adresse email</label><input type="email" required placeholder="vous@exemple.fr" /></div>
+          <div className="form-field"><label>Adresse email</label><input type="email" required placeholder="vous@exemple.com" /></div>
           <div className="form-field"><label>Mot de passe</label><input type="password" required placeholder="8 caractères minimum" /></div>
           <button type="submit" className="btn btn-primary btn-block">Créer mon compte</button>
         </form>

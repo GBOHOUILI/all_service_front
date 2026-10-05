@@ -6,6 +6,7 @@ import ProductDetailClient from "./ProductDetailClient";
 import ProductCard from "@/components/ProductCard";
 import Testimonials from "@/components/Testimonials";
 import { PRODUCTS } from "@/lib/data";
+import { BRAND } from "@/lib/brand";
 
 export function generateStaticParams() {
   return PRODUCTS.filter((p) => !p.hidden).map((p) => ({ slug: p.slug }));
@@ -85,7 +86,7 @@ export default async function ProductPage({
         <div className="wrap" style={{ maxWidth: 780, margin: "0 auto" }}>
           <h2 style={{ fontSize: 24, marginBottom: 16 }}>Livraison &amp; délais</h2>
           <p style={{ fontSize: 14.5, color: "var(--ink-soft)", lineHeight: 1.7, marginBottom: 14 }}>
-            {product.name} est composé sur commande, généralement livré sous 24 à 48h sur Paris et sa proche banlieue.
+            {product.name} est composé sur commande, généralement livré sous 24 à 48h à {BRAND.city} et ses environs.
             Vous choisissez le créneau de livraison au moment du paiement : domicile, lieu de travail ou adresse d&apos;un proche.
           </p>
           <p style={{ fontSize: 14.5, color: "var(--ink-soft)", lineHeight: 1.7 }}>

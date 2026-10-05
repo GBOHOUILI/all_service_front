@@ -12,6 +12,13 @@ export const BRAND = {
   // Chemin vers un fichier dans /public (ex. "/brand/logo.svg").
   // null = logo typographique construit à partir de `name`.
   logo: null as string | null,
+  // Coordonnées affichées sur le site (contact, mentions légales, hero).
+  city: "Cotonou",
+  country: "Bénin",
+  address: "Cotonou, Bénin",
+  phone: "+229 01 90 00 00 00",
+  email: "bonjour@allservices.bj",
+  currency: "FCFA",
   // Photos du collage animé du hero, de la plus en avant à la plus en retrait.
   heroImages: [
     "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=80",
