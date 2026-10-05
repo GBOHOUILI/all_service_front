@@ -7,6 +7,7 @@ import { findProduct, fmt, shippingFor, FREE_DELIVERY_FROM } from "@/lib/data";
 import { BRAND } from "@/lib/brand";
 import { DEMO_PAGES } from "@/lib/features";
 import { orderMessage, whatsappUrl } from "@/lib/whatsapp";
+import { track } from "@/lib/analytics";
 
 export default function PanierPage() {
   const { cart, removeFromCart, setQty, cartTotal, clearCart } = useCart();
@@ -32,6 +33,7 @@ export default function PanierPage() {
         customer: { ...form, landmark: form.zip },
       })
     );
+    track("commande-whatsapp", { reference: number, total, articles: cart.length });
     // Opened inside the submit handler so popup blockers treat it as user-initiated.
     window.open(link, "_blank", "noopener");
     setOrderNumber(number);
@@ -53,7 +55,7 @@ export default function PanierPage() {
             </p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
               {orderLink && (
-                <a href={orderLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                <a href={orderLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={() => track("commande-whatsapp-relance")}>
                   Ouvrir WhatsApp
                 </a>
               )}
@@ -150,7 +152,10 @@ export default function PanierPage() {
           <div className="card" style={{ padding: 24, position: "sticky", top: 100, height: "fit-content" }}>
             <h4 style={{ marginBottom: 16 }}>Résumé</h4>
             <SummaryRows subtotal={cartTotal} shipping={shipping} total={total} />
-            <button className="btn btn-primary btn-block" style={{ marginTop: 16 }} onClick={() => setStep("livraison")}>
+            <button className="btn btn-primary btn-block" style={{ marginTop: 16 }} onClick={() => {
+                track("debut-commande", { total, articles: cart.length });
+                setStep("livraison");
+              }}>
               Continuer
             </button>
             <Link href="/boutique" className="btn-ghost" style={{ display: "block", textAlign: "center", marginTop: 10 }}>
