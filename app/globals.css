@@ -17,7 +17,8 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+/* Keeps the layout width stable when the intro locks scrolling. */
+html { scroll-behavior: smooth; scrollbar-gutter: stable; }
 body {
   margin: 0;
   background: var(--ivory-soft);
@@ -172,24 +173,44 @@ img, svg { display: block; max-width: 100%; }
 .hero-scroll-hint i { width: 1px; height: 30px; background: color-mix(in srgb, var(--ivory) 40%, transparent); display: block; transform-origin: top; animation: hero-scroll-move 1.8s ease-in-out infinite; }
 @keyframes hero-scroll-move { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
 
-/* Intro : écran du nom de marque puis rideau qui se lève. */
+/* Intro : compteur, photos en volets, nom en 3D, puis la photo atterrit dans le hero. */
 .hero-intro {
   position: fixed; inset: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: center;
   background: var(--ivory); color: var(--forest);
-  clip-path: inset(0% 0% 0% 0%);
+  overflow: hidden;
 }
-.intro-inner { visibility: hidden; display: flex; flex-direction: column; align-items: center; gap: 18px; }
-.intro-name { font-family: var(--font-display); font-size: clamp(46px, 9vw, 120px); line-height: 1; letter-spacing: -0.03em; display: flex; }
-.intro-letter-mask { display: inline-block; overflow: hidden; padding-bottom: 0.1em; }
-.intro-letter { display: inline-block; }
-.intro-rule { width: 120px; height: 1px; background: var(--brass); display: block; }
-.intro-tagline { font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--brass); font-weight: 600; }
+.hero-intro > * { visibility: hidden; }
+.intro-stage { position: fixed; z-index: 2; left: 50%; top: 50%; width: 0; height: 0; overflow: hidden; will-change: left, top, width, height; }
+.intro-shot { position: absolute; inset: 0; overflow: hidden; clip-path: inset(100% 0% 0% 0%); }
+.intro-name {
+  position: absolute; z-index: 1; left: 0; right: 0; top: 50%; translate: 0 -50%;
+  display: flex; justify-content: center;
+  font-family: var(--font-display); font-size: clamp(56px, 13vw, 220px); line-height: 1; letter-spacing: -0.04em;
+  color: var(--forest-deep); perspective: 900px; pointer-events: none;
+}
+/* Same box as the viewport, offset by the stage position so both copies overlap exactly. */
+.intro-name-inner { right: auto; top: 0; translate: none; z-index: 10; align-items: center; color: var(--ivory); }
+.intro-letter-mask { display: inline-block; overflow: hidden; padding: 0.06em 0 0.12em; }
+.intro-letter { display: inline-block; transform-style: preserve-3d; will-change: transform; }
+.intro-counter {
+  position: absolute; left: 28px; bottom: 10px;
+  font-family: var(--font-display); font-size: clamp(64px, 11vw, 180px); line-height: 1; letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums; color: var(--forest);
+}
+.intro-meta { position: absolute; font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; font-weight: 600; color: var(--brass); }
+.intro-meta-left { top: 28px; left: 28px; }
+.intro-meta-right { top: 28px; right: 28px; }
+.intro-meta-bottom { right: 28px; bottom: 32px; color: var(--ink-soft); letter-spacing: 0.2em; }
+@media (max-width: 560px) {
+  .intro-meta-right, .intro-meta-bottom { display: none; }
+  .intro-counter { left: 16px; }
+  .intro-meta-left { left: 16px; top: 20px; }
+}
 
 /* État initial masqué, révélé par GSAP. Sans JS, le failsafe CSS montre tout. */
 .hero-motion [data-h], .hero-motion .word, .hero-motion .collage-item { visibility: hidden; }
 .hero-motion:not(.motion-on) :is([data-h], .word, .collage-item) { animation: reveal-failsafe 0s 3s forwards; }
-.hero-motion:not(.motion-on) .hero-intro { animation: intro-failsafe 0.5s 3s forwards; }
+.hero-intro:not(.motion-on) { animation: intro-failsafe 0.5s 3s forwards; }
 .hero-motion:not(.motion-on) .collage-ring circle { stroke-dashoffset: 0; }
 @keyframes reveal-failsafe { to { visibility: visible; } }
 @keyframes intro-failsafe { to { opacity: 0; visibility: hidden; } }

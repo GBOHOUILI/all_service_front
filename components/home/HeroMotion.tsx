@@ -36,15 +36,20 @@ const STATEMENT = "Chaque fleur est choisie une à une, pour vous.";
 
 export default function HeroMotion({ avg }: { avg: string }) {
   const rootRef = useRef<HTMLElement>(null);
+  // The intro lives outside the section: once the hero is pinned, the section
+  // becomes the containing block of fixed children and would clip the intro.
+  const introRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const root = rootRef.current;
     if (!root) return;
 
     const q = gsap.utils.selector(root);
-    const intro = q(".hero-intro")[0] as HTMLElement | undefined;
+    const intro = introRef.current ?? undefined;
+    const iq = gsap.utils.selector(intro ?? root);
     // JS is alive: GSAP now owns visibility, the CSS failsafe reveal is disabled.
     root.classList.add("motion-on");
+    intro?.classList.add("motion-on");
 
     const mm = gsap.matchMedia();
 
@@ -68,33 +73,98 @@ export default function HeroMotion({ avg }: { avg: string }) {
         } catch {}
 
         const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+        const items = q(".collage-item");
+        // With the intro, photo 0 is not animated in: the intro lands it in place.
+        const entering = intro && !seen ? items.slice(1) : items;
 
         if (intro && !seen) {
           document.documentElement.style.overflow = "hidden";
-          tl.set(".intro-inner", { autoAlpha: 1 })
-            .from(".intro-letter", { yPercent: 110, duration: 1, stagger: 0.045 })
-            .from(".intro-rule", { scaleX: 0, duration: 0.9, ease: "power3.inOut" }, "-=0.6")
-            .from(".intro-tagline", { autoAlpha: 0, y: 12, duration: 0.6 }, "-=0.5")
-            .to(".intro-inner", { yPercent: -40, autoAlpha: 0, duration: 0.8, ease: "power3.in" }, "+=0.35")
-            .to(intro, { clipPath: "inset(0% 0% 100% 0%)", duration: 1.1, ease: "expo.inOut" }, "-=0.45")
+          const stage = iq(".intro-stage")[0];
+          const counterEl = iq(".intro-counter")[0];
+          const landing = q(".collage-item-0 .collage-frame")[0];
+          const vw = window.innerWidth;
+          const vh = window.innerHeight;
+          const w = Math.min(vw * 0.26, vh * 0.42, 380);
+          const h = w * 1.32;
+          const count = { v: 0 };
+
+          const innerName = iq(".intro-name-inner")[0];
+          const n = BRAND.name.length;
+          const alignInnerName = () =>
+            gsap.set(innerName, { left: -(gsap.getProperty(stage, "left") as number), top: -(gsap.getProperty(stage, "top") as number) });
+
+          gsap.set(stage, { left: (vw - w) / 2, top: (vh - h) / 2, width: w, height: h, borderRadius: 18 });
+          gsap.set(innerName, { width: vw, height: vh });
+          alignInnerName();
+          tl.set(iq(".hero-intro > *"), { autoAlpha: 1 })
+            .from(iq(".intro-meta"), { autoAlpha: 0, y: 14, duration: 0.8, stagger: 0.1 }, 0.1)
+            .to(
+              count,
+              {
+                v: 100,
+                duration: 2.7,
+                ease: "power2.inOut",
+                onUpdate: () => {
+                  counterEl.textContent = String(Math.round(count.v)).padStart(3, "0");
+                },
+              },
+              0
+            );
+          // Photo flipbook: each shot wipes up over the previous one, ending on photo 0.
+          iq(".intro-shot").forEach((shot, i) => {
+            tl.fromTo(
+              shot,
+              { clipPath: "inset(100% 0% 0% 0%)" },
+              { clipPath: "inset(0% 0% 0% 0%)", duration: 0.6, ease: "expo.inOut" },
+              0.15 + i * 0.45
+            ).from(shot.querySelector("img"), { scale: 1.5, duration: 1.1 }, "<");
+          });
+          tl.from(
+            iq(".intro-letter"),
+            // Both name copies share the same per-letter delay so they stay in sync.
+            { yPercent: 120, rotateX: -85, duration: 1.2, stagger: (i: number) => (i % n) * 0.05, transformOrigin: "50% 100% -40px" },
+            0.55
+          )
+            .addLabel("expand", 2.95)
+            .to(iq(".intro-letter"), { yPercent: -130, rotateX: 85, duration: 0.7, stagger: (i: number) => (i % n) * 0.025, ease: "power3.in" }, "expand-=0.35")
+            .to(iq(".intro-counter, .intro-meta"), { autoAlpha: 0, y: -24, duration: 0.5, ease: "power2.in" }, "expand-=0.35")
+            .to(stage, { left: 0, top: 0, width: vw, height: vh, borderRadius: 0, duration: 1.1, ease: "expo.inOut", onUpdate: alignInnerName }, "expand")
+            // The photo now covers the screen: the hero can be revealed behind it.
+            .set(intro, { backgroundColor: "transparent" })
+            .addLabel("land", "+=0.12")
+            // Function values are read when the tween starts, so the landing spot is measured live.
+            .to(
+              stage,
+              {
+                left: () => landing.getBoundingClientRect().left,
+                top: () => landing.getBoundingClientRect().top,
+                width: () => landing.getBoundingClientRect().width,
+                height: () => landing.getBoundingClientRect().height,
+                borderRadius: 22,
+                duration: 1.25,
+                ease: "expo.inOut",
+              },
+              "land"
+            )
             .add(() => {
-              document.documentElement.style.overflow = "";
+              gsap.set(items[0], { autoAlpha: 1 });
               gsap.set(intro, { display: "none" });
+              document.documentElement.style.overflow = "";
+              ScrollTrigger.refresh();
             })
-            // Hero entrance starts while the curtain is still lifting.
-            .addLabel("hero", "-=0.7");
+            .addLabel("hero", "land+=0.35");
         } else {
           gsap.set(intro ?? [], { display: "none" });
           tl.addLabel("hero", 0.1);
         }
 
         tl.fromTo(
-          ".collage-item",
+          entering,
           { autoAlpha: 0, y: 140, scale: 0.7, rotation: (i: number) => (i % 2 ? 8 : -8) },
           { autoAlpha: 1, y: 0, scale: 1, rotation: 0, duration: 1.6, stagger: 0.09 },
           "hero"
         )
-          .from(".collage-inner", { scale: 1.45, duration: 2, stagger: 0.09 }, "hero")
+          .from(entering.map((el) => el.querySelector(".collage-inner")), { scale: 1.45, duration: 2, stagger: 0.09 }, "hero")
           .to(".collage-ring circle", { strokeDashoffset: 0, duration: 2.4, ease: "power2.inOut" }, "hero+=0.2")
           .fromTo(".word", { autoAlpha: 1, yPercent: 115 }, { yPercent: 0, duration: 1.2, stagger: 0.07 }, "hero+=0.15")
           .fromTo("[data-h]", { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 1, stagger: 0.1 }, "hero+=0.65");
@@ -188,97 +258,117 @@ export default function HeroMotion({ avg }: { avg: string }) {
   }, []);
 
   return (
-    <section ref={rootRef} className="hero-motion">
-      <div className="hero-glow" aria-hidden="true" />
+    <>
+      <section ref={rootRef} className="hero-motion">
+        <div className="hero-glow" aria-hidden="true" />
 
-      <div className="wrap hero-grid">
-        <div className="hero-copy">
-          <span className="eyebrow hero-eyebrow" data-h>
-            {BRAND.tagline} · {BRAND.city}
-          </span>
-          <h1 className="hero-title">
-            {TITLE.map((w, i) => (
-              <span key={i}>
-                <span className="word-mask">
-                  <span className={w.accent ? "word word-accent" : "word"}>{w.text}</span>
-                </span>{" "}
-              </span>
-            ))}
-          </h1>
-          <p className="hero-lede" data-h>
-            Chaque bouquet est assemblé à la main dans notre atelier de {BRAND.city}, à partir de fleurs de saison choisies une
-            à une, pour célébrer vos instants les plus précieux.
-          </p>
-          <div className="hero-ctas" data-h>
-            <Link href="/boutique" className="btn btn-light">Découvrir la boutique</Link>
-            <Link href="/sur-mesure" className="btn btn-outline-light">Composer sur-mesure</Link>
+        <div className="wrap hero-grid">
+          <div className="hero-copy">
+            <span className="eyebrow hero-eyebrow" data-h>
+              {BRAND.tagline} · {BRAND.city}
+            </span>
+            <h1 className="hero-title">
+              {TITLE.map((w, i) => (
+                <span key={i}>
+                  <span className="word-mask">
+                    <span className={w.accent ? "word word-accent" : "word"}>{w.text}</span>
+                  </span>{" "}
+                </span>
+              ))}
+            </h1>
+            <p className="hero-lede" data-h>
+              Chaque bouquet est assemblé à la main dans notre atelier de {BRAND.city}, à partir de fleurs de saison choisies une
+              à une, pour célébrer vos instants les plus précieux.
+            </p>
+            <div className="hero-ctas" data-h>
+              <Link href="/boutique" className="btn btn-light">Découvrir la boutique</Link>
+              <Link href="/sur-mesure" className="btn btn-outline-light">Composer sur-mesure</Link>
+            </div>
+            <div className="hero-badges" data-h>
+              <span className="hero-badge"><b>{avg}/5</b> note moyenne</span>
+              <span className="hero-badge"><b>+500</b> commandes livrées</span>
+              <span className="hero-badge"><b>100%</b> fait main</span>
+            </div>
           </div>
-          <div className="hero-badges" data-h>
-            <span className="hero-badge"><b>{avg}/5</b> note moyenne</span>
-            <span className="hero-badge"><b>+500</b> commandes livrées</span>
-            <span className="hero-badge"><b>100%</b> fait main</span>
-          </div>
-        </div>
 
-        <div className="hero-collage" aria-hidden="true">
-          <svg className="collage-ring" viewBox="0 0 420 420">
-            <circle cx="210" cy="210" r="200" pathLength={1300} strokeDasharray="1300" />
-          </svg>
-          {BRAND.heroImages.slice(0, 5).map((src, i) => (
-            <div key={src} className={`collage-item collage-item-${i}`}>
-              <div className="collage-scroll">
-                <div className="collage-parallax">
-                  <div className="collage-frame">
-                    <div className="collage-inner">
-                      <Image src={src} alt="" fill priority={i < 2} sizes="(max-width: 900px) 50vw, 30vw" style={{ objectFit: "cover" }} />
+          <div className="hero-collage" aria-hidden="true">
+            <svg className="collage-ring" viewBox="0 0 420 420">
+              <circle cx="210" cy="210" r="200" pathLength={1300} strokeDasharray="1300" />
+            </svg>
+            {BRAND.heroImages.slice(0, 5).map((src, i) => (
+              <div key={src} className={`collage-item collage-item-${i}`}>
+                <div className="collage-scroll">
+                  <div className="collage-parallax">
+                    <div className="collage-frame">
+                      <div className="collage-inner">
+                        <Image src={src} alt="" fill priority={i < 2} sizes="(max-width: 900px) 50vw, 30vw" style={{ objectFit: "cover" }} />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="hero-portal" aria-hidden="true">
-        <div className="hero-portal-img">
-          <Image src={BRAND.heroImages[0]} alt="" fill sizes="100vw" style={{ objectFit: "cover" }} />
-        </div>
-        <div className="hero-portal-shade" />
-        <div className="wrap hero-portal-copy">
-          <span className="eyebrow portal-eyebrow">L&apos;atelier · {BRAND.city}</span>
-          <p className="portal-statement">
-            {STATEMENT.split(" ").map((w, i) => (
-              <span key={i}>
-                <span className="word-mask">
-                  <span className="portal-word">{w}</span>
-                </span>{" "}
-              </span>
-            ))}
-          </p>
-        </div>
-      </div>
-
-      <PetalsCanvas />
-
-      <div className="hero-scroll-hint" data-h>
-        <span>Défiler</span>
-        <i />
-      </div>
-
-      <div className="hero-intro">
-        <div className="intro-inner">
-          <div className="intro-name">
-            {BRAND.name.split("").map((c, i) => (
-              <span key={i} className="intro-letter-mask">
-                <span className="intro-letter">{c === " " ? " " : c}</span>
-              </span>
             ))}
           </div>
-          <span className="intro-rule" />
-          <span className="intro-tagline">{BRAND.tagline}</span>
         </div>
+
+        <div className="hero-portal" aria-hidden="true">
+          <div className="hero-portal-img">
+            <Image src={BRAND.heroImages[0]} alt="" fill sizes="100vw" style={{ objectFit: "cover" }} />
+          </div>
+          <div className="hero-portal-shade" />
+          <div className="wrap hero-portal-copy">
+            <span className="eyebrow portal-eyebrow">L&apos;atelier · {BRAND.city}</span>
+            <p className="portal-statement">
+              {STATEMENT.split(" ").map((w, i) => (
+                <span key={i}>
+                  <span className="word-mask">
+                    <span className="portal-word">{w}</span>
+                  </span>{" "}
+                </span>
+              ))}
+            </p>
+          </div>
+        </div>
+
+        <PetalsCanvas />
+
+        <div className="hero-scroll-hint" data-h>
+          <span>Défiler</span>
+          <i />
+        </div>
+      </section>
+
+      <div ref={introRef} className="hero-intro">
+        <span className="intro-meta intro-meta-left">{BRAND.tagline}</span>
+        <span className="intro-meta intro-meta-right">
+          {BRAND.city} · {BRAND.country}
+        </span>
+        <div className="intro-stage">
+          {/* Photo 0 goes last: it is the one that lands in the hero collage. */}
+          {[...BRAND.heroImages.slice(1, 5), BRAND.heroImages[0]].map((src, i) => (
+            <div key={src} className="intro-shot" style={{ zIndex: i }}>
+              <Image src={src} alt="" fill priority sizes="100vw" style={{ objectFit: "cover" }} />
+            </div>
+          ))}
+          {/* Ivory copy of the name, clipped by the photo, so letters switch color at its edge. */}
+          <IntroName className="intro-name intro-name-inner" />
+        </div>
+        <IntroName className="intro-name" />
+        <span className="intro-counter">000</span>
+        <span className="intro-meta intro-meta-bottom">Préparation de l&apos;atelier</span>
       </div>
-    </section>
+    </>
+  );
+}
+
+function IntroName({ className }: { className: string }) {
+  return (
+    <div className={className}>
+      {BRAND.name.split("").map((c, i) => (
+        <span key={i} className="intro-letter-mask">
+          <span className="intro-letter">{c === " " ? "\u00a0" : c}</span>
+        </span>
+      ))}
+    </div>
   );
 }
