@@ -48,7 +48,7 @@ export default function ContactPage() {
             <p style={{ fontSize: 13.5, color: "var(--ink-soft)" }}>{BRAND.phone}</p>
             <p style={{ fontSize: 13.5, color: "var(--ink-soft)" }}>{BRAND.email}</p>
             <p style={{ fontSize: 13.5, color: "var(--ink-soft)" }}>{BRAND.address}</p>
-            <p style={{ fontSize: 13.5, color: "var(--ink-soft)" }}>Lun – Ven : 9h – 18h · Sam : 10h – 16h</p>
+            <p style={{ fontSize: 13.5, color: "var(--ink-soft)" }}>{BRAND.hours}</p>
           </div>
         </div>
       </div>
