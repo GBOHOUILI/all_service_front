@@ -24,8 +24,8 @@ export default function AdminShell({ title, children }: { title: string; childre
   }
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh", background: "var(--ivory)" }}>
-      <aside style={{ width: 240, flexShrink: 0, background: "var(--forest-deep)", color: "#d9e0d5", display: "flex", flexDirection: "column" }}>
+    <div className="admin-shell" style={{ minHeight: "100vh", background: "var(--ivory)" }}>
+      <aside className="admin-aside" style={{ background: "var(--forest-deep)", color: "#d9e0d5" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "22px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
           <div style={{ width: 34, height: 34, borderRadius: 10, background: "var(--brass)", color: "#241a0c", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontWeight: 700 }}>{BRAND.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}</div>
           <div>
@@ -33,7 +33,7 @@ export default function AdminShell({ title, children }: { title: string; childre
             <div style={{ fontSize: 9, letterSpacing: "0.1em", color: "#93a08d", textTransform: "uppercase" }}>Administration</div>
           </div>
         </div>
-        <nav style={{ flex: 1, padding: 12, display: "flex", flexDirection: "column", gap: 2 }}>
+        <nav className="admin-nav" style={{ padding: 12, gap: 2 }}>
           {NAV.map((n) => (
             <Link
               key={n.href}
@@ -56,10 +56,10 @@ export default function AdminShell({ title, children }: { title: string; childre
         </div>
       </aside>
       <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ padding: "16px 30px", borderBottom: "1px solid var(--line)", background: "rgba(247,244,236,0.9)" }}>
+        <div className="admin-topbar" style={{ borderBottom: "1px solid var(--line)", background: "rgba(247,244,236,0.9)" }}>
           <h1 style={{ fontSize: 20 }}>{title}</h1>
         </div>
-        <div style={{ padding: "26px 30px 60px" }}>{children}</div>
+        <div className="admin-content">{children}</div>
       </div>
     </div>
   );

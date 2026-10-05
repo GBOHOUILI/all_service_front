@@ -42,7 +42,7 @@ export default function SurMesurePage() {
       <div className="wrap">
         <span className="eyebrow center" style={{ display: "block" }}>Composition sur-mesure</span>
         <h1 className="center" style={{ fontSize: 36, margin: "10px 0 30px" }}>Créez votre composition</h1>
-        <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: 40 }}>
+        <div className="layout-split" style={{ gap: 40 }}>
           <div>
             <Block n={1} label="Type de composition">
               <PillGrid>
@@ -101,7 +101,7 @@ function Block({ n, label, children }: { n: number; label: string; children: Rea
   );
 }
 function PillGrid({ children }: { children: React.ReactNode }) {
-  return <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10 }}>{children}</div>;
+  return <div className="cols-4" style={{ gap: 10 }}>{children}</div>;
 }
 function Pill({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
   return (

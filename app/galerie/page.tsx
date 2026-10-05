@@ -7,7 +7,7 @@ export default function GaleriePage() {
       <div className="wrap">
         <span className="eyebrow center" style={{ display: "block" }}>Notre univers</span>
         <h1 className="center" style={{ fontSize: 36, margin: "10px 0 30px" }}>Galerie</h1>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }}>
+        <div className="cols-4" style={{ gap: 20 }}>
           {GALLERY_ITEMS.map((item, i) => (
             <div
               key={i}

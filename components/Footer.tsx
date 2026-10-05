@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer style={{ borderTop: "1px solid var(--line)", padding: "56px 0 30px", marginTop: 60 }}>
       <div className="wrap">
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr 1fr", gap: 40, marginBottom: 40 }}>
+        <div className="footer-grid" style={{ gap: 40, marginBottom: 40 }}>
           <div>
             <span style={{ fontFamily: "var(--font-display)", fontSize: 20, color: "var(--forest)" }}>{BRAND.name}</span>
             <p style={{ fontSize: 13.5, color: "var(--ink-soft)", maxWidth: 260, margin: "12px 0 0" }}>

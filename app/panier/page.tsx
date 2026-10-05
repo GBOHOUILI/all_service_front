@@ -87,7 +87,7 @@ export default function PanierPage() {
             <p>✓ Pas besoin de créer de compte : vous pouvez commander en tant qu&apos;invité·e.</p>
             <Link href="/connexion" className="btn-ghost">Déjà client ? Se connecter →</Link>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: 40 }}>
+          <div className="layout-split" style={{ gap: 40 }}>
             <form onSubmit={handleSubmit}>
               <div className="form-row2">
                 <div className="form-field"><label>Nom complet</label><input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} /></div>
@@ -121,15 +121,15 @@ export default function PanierPage() {
     <section className="section">
       <div className="wrap">
         <h1 style={{ fontSize: 32, marginBottom: 30 }}>Votre panier</h1>
-        <div style={{ display: "grid", gridTemplateColumns: "1.5fr 1fr", gap: 40 }}>
+        <div className="layout-split" style={{ gap: 40 }}>
           <div>
             {cart.map((item, i) => {
               const p = findProduct(item.slug);
               if (!p) return null;
               return (
-                <div key={i} style={{ display: "flex", gap: 16, alignItems: "center", padding: "16px 0", borderBottom: "1px solid var(--line)" }}>
+                <div key={i} className="cart-row" style={{ padding: "16px 0", borderBottom: "1px solid var(--line)" }}>
                   <div style={{ width: 70, height: 70, borderRadius: 12, background: p.accent, opacity: 0.3, flexShrink: 0 }} />
-                  <div style={{ flex: 1 }}>
+                  <div className="cart-row-info">
                     <h4 style={{ margin: "0 0 4px", fontSize: 15 }}>{p.name}</h4>
                     <p style={{ margin: 0, fontSize: 12.5, color: "var(--ink-soft)" }}>Format {item.variant}</p>
                     <button onClick={() => removeFromCart(i)} style={{ fontSize: 12, color: "var(--ink-soft)", border: "none", background: "none", textDecoration: "underline", marginTop: 4 }}>
@@ -141,7 +141,7 @@ export default function PanierPage() {
                     <span>{item.qty}</span>
                     <button onClick={() => setQty(i, item.qty + 1)} style={{ width: 30, height: 30, border: "1px solid var(--line)", borderRadius: 999, background: "none" }}>+</button>
                   </div>
-                  <b style={{ minWidth: 70, textAlign: "right" }}>{fmt(item.price * item.qty)}</b>
+                  <b className="cart-row-price">{fmt(item.price * item.qty)}</b>
                 </div>
               );
             })}

@@ -96,7 +96,7 @@ export default async function BoutiquePage({
 
       {/* NOUVELLE SECTION : engagement qualité */}
       <section className="section" style={{ background: "var(--card)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
-        <div className="wrap" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24, textAlign: "center" }}>
+        <div className="wrap cols-3" style={{ gap: 24, textAlign: "center" }}>
           <div>
             <h3 style={{ fontSize: 16, marginBottom: 8 }}>Fleurs de saison</h3>
             <p style={{ fontSize: 13.5, color: "var(--ink-soft)" }}>Sélectionnées chaque matin auprès de producteurs locaux.</p>

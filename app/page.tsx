@@ -114,7 +114,7 @@ export default function HomePage() {
 
         <section className="section">
           <div className="wrap">
-            <div style={{ background: "var(--forest)", borderRadius: 24, padding: "40px 30px", display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20, textAlign: "center" }} className="stats-band" data-reveal>
+            <div style={{ background: "var(--forest)", borderRadius: 24, padding: "40px 30px", gap: 20, textAlign: "center" }} className="cols-4 stats-band" data-reveal>
               <div><b style={{ display: "block", fontFamily: "var(--font-display)", fontSize: 30, color: "#fff" }} data-count={avg} data-decimals="1" data-suffix="/5">{avg}/5</b><span style={{ fontSize: 12.5, color: "#c7d3c0" }}>Note moyenne</span></div>
               <div><b style={{ display: "block", fontFamily: "var(--font-display)", fontSize: 30, color: "#fff" }} data-count="500" data-prefix="+">+500</b><span style={{ fontSize: 12.5, color: "#c7d3c0" }}>Commandes livrées</span></div>
               <div><b style={{ display: "block", fontFamily: "var(--font-display)", fontSize: 30, color: "#fff" }} data-count="300" data-prefix="+">+300</b><span style={{ fontSize: 12.5, color: "#c7d3c0" }}>Clients fidèles</span></div>

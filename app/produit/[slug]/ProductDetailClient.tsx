@@ -28,7 +28,7 @@ export default function ProductDetailClient({
       <h4 style={{ fontSize: 13, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--brass)", marginBottom: 8 }}>
         Choisissez votre composition
       </h4>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 10, margin: "0 0 24px" }}>
+      <div className="cols-5" style={{ gap: 10, margin: "0 0 24px" }}>
         {variants.map((v, i) => (
           <button
             key={v.label}

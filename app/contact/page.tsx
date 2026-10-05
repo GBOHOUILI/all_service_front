@@ -14,7 +14,7 @@ export default function ContactPage() {
         <p className="lede" style={{ margin: "8px 0 40px", maxWidth: "none" }}>
           Nous sommes là pour vous aider à créer quelque chose de beau.
         </p>
-        <div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 50 }}>
+        <div className="layout-split layout-split-even" style={{ gap: 50 }}>
           {sent ? (
             <div className="empty-state" style={{ padding: "40px 0" }}>
               <h3>Votre message est prêt dans WhatsApp</h3>

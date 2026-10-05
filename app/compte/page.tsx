@@ -39,7 +39,7 @@ export default function ComptePage() {
           </div>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16, marginBottom: 34 }}>
+        <div className="cols-3" style={{ gap: 16, marginBottom: 34 }}>
           <div className="card" style={{ padding: 20 }}>
             <div style={{ fontFamily: "var(--font-display)", fontSize: 24, color: "var(--forest)" }}>{myOrders.length}</div>
             <div style={{ fontSize: 12, color: "var(--ink-soft)" }}>Commandes passées</div>

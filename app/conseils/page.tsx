@@ -17,13 +17,7 @@ export default function ConseilsPage() {
           Des gestes simples et des idées pour prendre soin de vos fleurs.
         </p>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 24,
-          }}
-        >
+        <div className="cols-3" style={{ gap: 24 }}>
           {BLOG.map((b) => (
             <article key={b.slug} className="card">
               {/* Image */}

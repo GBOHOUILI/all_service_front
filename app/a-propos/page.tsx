@@ -46,7 +46,7 @@ export default function AProposPage() {
           </p>
 
           <h2 style={{ fontSize: 24, margin: "30px 0 14px" }}>Nos valeurs</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
+          <div className="cols-3" style={{ gap: 20 }}>
             <div className="card" style={{ padding: 24, textAlign: "center" }}>
               <h3 style={{ fontSize: 16 }}>Qualité</h3>
               <p style={{ fontSize: 13.5, color: "var(--ink-soft)" }}>Fleurs sélectionnées avec exigence, fraîcheur garantie.</p>
@@ -70,7 +70,7 @@ export default function AProposPage() {
             <span className="eyebrow">Dans les coulisses</span>
             <h2 style={{ fontSize: 26, margin: "12px 0 0" }}>Notre atelier, au quotidien</h2>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
+          <div className="cols-3" style={{ gap: 20 }}>
             {ATELIER_PHOTOS.map((src, i) => (
               <div key={i} className="media-frame" style={{ aspectRatio: "4/5" }}>
                 <Image src={src} alt={`Notre atelier ${i + 1}`} fill sizes="33vw" style={{ objectFit: "cover" }} />
@@ -103,7 +103,7 @@ export default function AProposPage() {
 
       {/* NOUVELLE SECTION : chiffres clés */}
       <section className="section" style={{ background: "var(--card)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
-        <div className="wrap" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20, textAlign: "center" }}>
+        <div className="wrap cols-4" style={{ gap: 20, textAlign: "center" }}>
           <div><b style={{ display: "block", fontFamily: "var(--font-display)", fontSize: 30, color: "var(--forest)" }}>10+</b><span style={{ fontSize: 12.5, color: "var(--ink-soft)" }}>Années d&apos;expérience</span></div>
           <div><b style={{ display: "block", fontFamily: "var(--font-display)", fontSize: 30, color: "var(--forest)" }}>+500</b><span style={{ fontSize: 12.5, color: "var(--ink-soft)" }}>Commandes livrées</span></div>
           <div><b style={{ display: "block", fontFamily: "var(--font-display)", fontSize: 30, color: "var(--forest)" }}>+50</b><span style={{ fontSize: 12.5, color: "var(--ink-soft)" }}>Mariages accompagnés</span></div>

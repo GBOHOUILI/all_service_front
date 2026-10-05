@@ -91,6 +91,58 @@ img, svg { display: block; max-width: 100%; }
 
 @media (max-width: 560px) { .form-row2 { grid-template-columns: 1fr; } }
 
+/* ==== Grilles responsives (remplacent les gridTemplateColumns inline) ==== */
+.layout-split { display: grid; grid-template-columns: 1.5fr 1fr; align-items: start; }
+.layout-split-even { grid-template-columns: 1fr 1fr; }
+.cols-3, .cols-4, .cols-5 { display: grid; }
+.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; }
+@media (max-width: 900px) {
+  .layout-split { grid-template-columns: minmax(0, 1fr); gap: 32px !important; }
+  .cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cols-5 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .cols-3 { grid-template-columns: minmax(0, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px !important; }
+  .footer-grid > :first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .wrap { padding: 0 18px; }
+  .section { padding: 44px 0; }
+}
+
+/* ==== Panier : ligne produit ==== */
+.cart-row { display: flex; gap: 16px; align-items: center; }
+.cart-row-info { flex: 1; min-width: 0; }
+.cart-row-price { min-width: 70px; text-align: right; white-space: nowrap; }
+@media (max-width: 560px) {
+  /* Quantity and price drop to a second line under the product name. */
+  .cart-row { flex-wrap: wrap; gap: 12px 14px; }
+  .cart-row-info { flex-basis: calc(100% - 84px); }
+  .cart-row-price { margin-left: auto; }
+}
+
+/* ==== Admin : barre latérale qui passe en haut sur mobile ==== */
+.admin-shell { display: flex; }
+.admin-aside { width: 240px; flex-shrink: 0; display: flex; flex-direction: column; }
+.admin-nav { flex: 1; display: flex; flex-direction: column; }
+.admin-topbar { padding: 16px 30px; }
+.admin-content { padding: 26px 30px 60px; }
+.admin-content table { width: 100%; }
+@media (max-width: 900px) {
+  .admin-shell { flex-direction: column; }
+  .admin-aside { width: 100%; }
+  .admin-nav { flex-direction: row; overflow-x: auto; white-space: nowrap; }
+  .admin-topbar { padding: 14px 18px; }
+  .admin-content { padding: 20px 18px 50px; }
+  /* Tables keep their columns and scroll sideways instead of crushing. */
+  .admin-content .card:has(table) { overflow-x: auto; }
+  .admin-content table { min-width: 620px; }
+}
+
 /* ==== Header : menu mobile ==== */
 .menu-toggle { display: none; width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 50%; background: transparent; align-items: center; justify-content: center; }
 .menu-icon, .menu-icon::before, .menu-icon::after { display: block; width: 16px; height: 1.5px; background: var(--forest); transition: transform 0.25s ease, background 0.25s ease; }
@@ -275,7 +327,7 @@ img, svg { display: block; max-width: 100%; }
 
 /* ==== Accueil : bandeau chiffres + ligne du processus ==== */
 .stats-band b { font-variant-numeric: tabular-nums; }
-@media (max-width: 780px) { .stats-band { grid-template-columns: repeat(2, 1fr) !important; row-gap: 28px !important; } }
+@media (max-width: 900px) { .stats-band { row-gap: 28px !important; } }
 .steps-track { position: relative; }
 .steps-line { position: absolute; top: 29px; left: 12.5%; right: 12.5%; height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; }
 .steps-line-fill { display: block; width: 100%; height: 100%; background: linear-gradient(90deg, var(--sage), var(--brass)); transform-origin: left; }
@@ -290,6 +342,7 @@ img, svg { display: block; max-width: 100%; }
 .cat-card-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,34,25,0) 40%, rgba(20,34,25,0.72) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; }
 .cat-card-overlay h3 { color: #fff; font-size: 16px; margin-bottom: 4px; }
 .cat-card-overlay p { color: rgba(255,255,255,0.82); font-size: 12px; margin: 0; }
+@media (max-width: 560px) { .cat-card-overlay p { display: none; } .cat-card-overlay { padding: 14px; } }
 @media (max-width: 980px) { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* ==== Étapes ("comment ça marche") ==== */

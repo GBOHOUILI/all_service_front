@@ -34,7 +34,7 @@ export default async function ProductPage({
             <Link href="/">Accueil</Link> / <Link href="/boutique">Boutique</Link> / {product.name}
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 50 }}>
+          <div className="layout-split layout-split-even" style={{ gap: 50 }}>
             <div>
               <div className="media-frame" style={{ aspectRatio: "1/1" }}>
                 <Image src={gallery[0]} alt={product.name} fill sizes="(max-width: 980px) 100vw, 50vw" style={{ objectFit: "cover" }} priority />
@@ -58,7 +58,7 @@ export default async function ProductPage({
       <section className="section" style={{ background: "var(--card)", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)" }}>
         <div className="wrap">
           <h2 className="center" style={{ fontSize: 26, marginBottom: 30 }}>Pourquoi choisir cette composition</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 22 }}>
+          <div className="cols-3" style={{ gap: 22 }}>
             <div style={{ textAlign: "center" }}>
               <h3 style={{ fontSize: 16, marginBottom: 8 }}>Fraîcheur garantie</h3>
               <p style={{ fontSize: 13.5, color: "var(--ink-soft)" }}>
