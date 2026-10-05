@@ -24,6 +24,15 @@ const TITLE: { text: string; accent?: boolean }[] = [
 
 // Parallax depth per collage photo: higher = moves more, feels closer.
 const DEPTHS = [1, 1.6, 2, 1.3, 2.4];
+// Where each collage photo flies when the hero is dived through (unit vectors + spin).
+const FLY_OUT = [
+  { x: 0, y: -0.6, r: -6 },
+  { x: -1, y: 0.8, r: -18 },
+  { x: 1, y: -0.8, r: 16 },
+  { x: 1, y: 0.8, r: 14 },
+  { x: -1, y: -0.8, r: -14 },
+];
+const STATEMENT = "Chaque fleur est choisie une à une, pour vous.";
 
 export default function HeroMotion({ avg }: { avg: string }) {
   const rootRef = useRef<HTMLElement>(null);
@@ -90,24 +99,61 @@ export default function HeroMotion({ avg }: { avg: string }) {
           .fromTo(".word", { autoAlpha: 1, yPercent: 115 }, { yPercent: 0, duration: 1.2, stagger: 0.07 }, "hero+=0.15")
           .fromTo("[data-h]", { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 1, stagger: 0.1 }, "hero+=0.65");
 
-        // Scroll: the copy drifts up while the collage bursts outward.
+        return () => {
+          document.documentElement.style.overflow = "";
+        };
+      },
+      root
+    );
+
+    // Desktop: the hero pins and the visitor "dives" through it. The copy
+    // leaves, the photos fly out and a portal opens on a full-bleed image.
+    mm.add(
+      "(prefers-reduced-motion: no-preference) and (min-width: 900px)",
+      () => {
+        const pin = gsap.timeline({
+          defaults: { ease: "none" },
+          scrollTrigger: { trigger: root, start: "top top", end: "+=180%", pin: true, scrub: 1, anticipatePin: 1 },
+        });
+        pin
+          .to(".hero-copy", { y: -90, autoAlpha: 0, duration: 0.3, ease: "power2.in" }, 0)
+          .to(".hero-scroll-hint", { autoAlpha: 0, duration: 0.1 }, 0)
+          .to(".collage-ring", { scale: 2.8, rotation: 160, autoAlpha: 0, duration: 0.5, ease: "power2.in" }, 0);
+        q(".collage-scroll").forEach((el, i) => {
+          const f = FLY_OUT[i] ?? FLY_OUT[0];
+          pin.to(
+            el,
+            { xPercent: f.x * 180, yPercent: f.y * 180, rotation: f.r, scale: 1.35, autoAlpha: 0, duration: 0.45, ease: "power2.in" },
+            0.04 + i * 0.03
+          );
+        });
+        pin
+          .fromTo(
+            ".hero-portal",
+            { clipPath: "inset(50% 50% 50% 50% round 40px)" },
+            { clipPath: "inset(0% 0% 0% 0% round 0px)", duration: 0.6, ease: "power3.inOut" },
+            0.18
+          )
+          .fromTo(".hero-portal-img", { scale: 1.7 }, { scale: 1, duration: 0.8, ease: "power2.out" }, 0.18)
+          .from(".portal-eyebrow", { autoAlpha: 0, y: 24, duration: 0.2 }, 0.62)
+          .from(".portal-word", { yPercent: 115, duration: 0.3, stagger: 0.035, ease: "power3.out" }, 0.66)
+          // Short hold so the statement can be read before the pin releases.
+          .to({}, { duration: 0.25 });
+      },
+      root
+    );
+
+    // Mobile: no pin, the copy drifts up while the collage bursts outward.
+    mm.add(
+      "(prefers-reduced-motion: no-preference) and (max-width: 899px)",
+      () => {
         const scrub = { trigger: root, start: "top top", end: "bottom top", scrub: 0.6 };
         gsap.to(".hero-copy", { y: -110, autoAlpha: 0.15, ease: "none", scrollTrigger: scrub });
         q(".collage-scroll").forEach((el, i) => {
           const d = DEPTHS[i] ?? 1;
-          gsap.to(el, {
-            y: -d * 130,
-            x: (i % 2 ? 1 : -1) * d * 40,
-            scale: 1 + d * 0.09,
-            ease: "none",
-            scrollTrigger: scrub,
-          });
+          gsap.to(el, { y: -d * 130, x: (i % 2 ? 1 : -1) * d * 40, scale: 1 + d * 0.09, ease: "none", scrollTrigger: scrub });
         });
         gsap.to(".collage-ring", { rotation: 120, ease: "none", scrollTrigger: scrub });
-
-        return () => {
-          document.documentElement.style.overflow = "";
-        };
       },
       root
     );
@@ -191,6 +237,25 @@ export default function HeroMotion({ avg }: { avg: string }) {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="hero-portal" aria-hidden="true">
+        <div className="hero-portal-img">
+          <Image src={BRAND.heroImages[0]} alt="" fill sizes="100vw" style={{ objectFit: "cover" }} />
+        </div>
+        <div className="hero-portal-shade" />
+        <div className="wrap hero-portal-copy">
+          <span className="eyebrow portal-eyebrow">L&apos;atelier · {BRAND.city}</span>
+          <p className="portal-statement">
+            {STATEMENT.split(" ").map((w, i) => (
+              <span key={i}>
+                <span className="word-mask">
+                  <span className="portal-word">{w}</span>
+                </span>{" "}
+              </span>
+            ))}
+          </p>
         </div>
       </div>
 

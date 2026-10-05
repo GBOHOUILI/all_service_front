@@ -208,6 +208,16 @@ img, svg { display: block; max-width: 100%; }
   .hero-glow, .hero-scroll-hint i { animation: none; }
 }
 
+/* Plongée dans le hero (desktop) : portail plein écran ouvert au scroll. */
+.hero-portal { position: absolute; inset: 0; z-index: 2; clip-path: inset(50% 50% 50% 50% round 40px); overflow: hidden; pointer-events: none; }
+.hero-portal-img { position: absolute; inset: 0; will-change: transform; }
+.hero-portal-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15, 28, 20, 0.15) 0%, rgba(15, 28, 20, 0.35) 45%, rgba(15, 28, 20, 0.85) 100%); }
+.hero-portal-copy { position: absolute; left: 0; right: 0; bottom: 12vh; }
+.portal-eyebrow { color: var(--blush); }
+.portal-statement { font-family: var(--font-display); font-size: clamp(40px, 6.4vw, 104px); line-height: 1; letter-spacing: -0.03em; color: var(--ivory); margin: 18px 0 0; max-width: 14ch; }
+.portal-word { display: inline-block; }
+@media (max-width: 899px) { .hero-portal { display: none; } }
+
 /* ==== Accueil : bandeau chiffres + ligne du processus ==== */
 .stats-band b { font-variant-numeric: tabular-nums; }
 @media (max-width: 780px) { .stats-band { grid-template-columns: repeat(2, 1fr) !important; row-gap: 28px !important; } }
