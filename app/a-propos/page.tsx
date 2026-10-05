@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Testimonials from "@/components/Testimonials";
+import { BRAND } from "@/lib/brand";
 
 const TEAM = [
   {
@@ -35,7 +36,7 @@ export default function AProposPage() {
           <h1 style={{ fontSize: 32, margin: "12px 0 16px" }}>L&apos;art des fleurs, avec émotion et élégance.</h1>
           <p className="lede" style={{ margin: "0 0 18px", maxWidth: "none" }}>
             All Services est né d&apos;une passion profonde pour les fleurs et d&apos;un désir de créer des compositions
-            qui touchent l&apos;âme. Depuis notre atelier parisien, nous sélectionnons chaque matin les plus belles
+            qui touchent l&apos;âme. Depuis notre atelier de {BRAND.city}, nous sélectionnons chaque matin les plus belles
             fleurs de saison auprès de producteurs locaux, pour composer des créations qui célèbrent les moments qui comptent.
           </p>
           <p className="lede" style={{ margin: "0 0 24px", maxWidth: "none" }}>

@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 export const metadata: Metadata = {
   title: `${BRAND.name} | Fleuriste premium & compositions sur-mesure`,
   description:
-    "Compositions florales élégantes, fraîches et sur-mesure. Livraison soignée à Paris.",
+    `Compositions florales élégantes, fraîches et sur-mesure. Livraison soignée à ${BRAND.city}.`,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

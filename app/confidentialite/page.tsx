@@ -9,8 +9,8 @@ export default function ConfidentialitePage() {
       <p>Nom, email, téléphone, adresse de livraison, historique de commandes. Aucune donnée bancaire n&apos;est collectée pour l&apos;instant (le paiement en ligne n&apos;est pas encore actif).</p>
       <h2 style={{ color: "var(--forest)", fontSize: 18 }}>Vos droits</h2>
       <p>
-        Conformément au RGPD : accès, rectification, effacement, limitation, opposition, portabilité. Contact :{" "}
-        <a href="mailto:confidentialite@allservices.fr" style={{ color: "var(--forest)", fontWeight: 700 }}>confidentialite@allservices.fr</a>.
+        Conformément au Code du numérique de la République du Bénin (loi n° 2017-20) : accès, rectification, effacement, limitation, opposition, portabilité. Contact :{" "}
+        <a href="mailto:confidentialite@allservices.bj" style={{ color: "var(--forest)", fontWeight: 700 }}>confidentialite@allservices.bj</a>.
       </p>
       <h2 style={{ color: "var(--forest)", fontSize: 18 }}>Sécurité</h2>
       <p>Des mesures techniques et organisationnelles appropriées protègent vos données.</p>

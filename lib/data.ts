@@ -316,7 +316,7 @@ export const BLOG = [
 ];
 
 export const FAQ = [
-  { q: "Sous quel délai puis-je recevoir ma commande ?", a: "Les commandes passées avant 12h sont livrées le jour même sur Paris et proche banlieue." },
+  { q: "Sous quel délai puis-je recevoir ma commande ?", a: `Les commandes passées avant 12h sont livrées le jour même à ${BRAND.city} et ses environs.` },
   { q: "Puis-je modifier ou annuler ma commande ?", a: "Toute modification est possible jusqu'à 24h avant la livraison prévue, en nous contactant." },
   { q: "Proposez-vous des compositions sur-mesure ?", a: "Oui, contactez-nous avec vos envies et notre atelier vous proposera une création unique." },
   { q: "Dois-je créer un compte pour commander ?", a: "Non. Vous pouvez commander en tant qu'invité·e : la création d'un compte est entièrement facultative." },
