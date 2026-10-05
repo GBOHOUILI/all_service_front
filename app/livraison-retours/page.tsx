@@ -1,4 +1,6 @@
 import LegalLayout from "@/components/LegalLayout";
+import { BRAND } from "@/lib/brand";
+import { DELIVERY_FEE, FREE_DELIVERY_FROM, fmt } from "@/lib/data";
 
 export default function LivraisonPage() {
   return (
@@ -8,7 +10,7 @@ export default function LivraisonPage() {
       <h2 style={{ color: "var(--forest)", fontSize: 18 }}>Délais</h2>
       <p>Commande avant 12h → livraison le jour même. Après → le lendemain.</p>
       <h2 style={{ color: "var(--forest)", fontSize: 18 }}>Frais de livraison</h2>
-      <p>2 000 FCFA à Cotonou, offerts dès 60 000 FCFA d&apos;achat.</p>
+      <p>{fmt(DELIVERY_FEE)} à {BRAND.city}, offerts dès {fmt(FREE_DELIVERY_FROM)} d&apos;achat.</p>
       <h2 style={{ color: "var(--forest)", fontSize: 18 }}>Retours</h2>
       <p>Produits périssables : pas de retour après livraison. Contactez-nous sous 24h en cas de composition non conforme.</p>
     </LegalLayout>
