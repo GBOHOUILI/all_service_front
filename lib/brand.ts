@@ -17,9 +17,9 @@ export const BRAND = {
   city: "Cotonou",
   country: "Bénin",
   address: "Lot 214, rue 12.110, Haie Vive, Cotonou, Bénin",
-  phone: "+229 01 90 00 00 00",
+  phone: "+229 01 67 48 32 64",
   // Numéro WhatsApp qui reçoit les commandes : indicatif + numéro, chiffres uniquement.
-  whatsapp: "2290190000000",
+  whatsapp: "2290163776505",
   email: "bonjour@allservices.bj",
   currency: "FCFA",
   hours: "Lun – Ven : 9h – 18h · Sam : 10h – 16h",
