@@ -1,25 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { DEMO_PAGES, isDemoRoute } from "@/lib/features";
+import { ADMIN_COOKIE, adminConfigured, verifySessionToken } from "@/lib/admin-session";
 
-// DÉMO : ce cookie n'est qu'un indicateur "connecté oui/non", sans
-// vérification serveur d'identité ni expiration réelle. Une vraie
-// authentification (NextAuth, Clerk, ou sessions signées côté serveur)
-// remplacera ce mécanisme quand la sécurité deviendra un besoin réel.
-const ADMIN_COOKIE = "as_admin_session";
+const notFound = (req: NextRequest) =>
+  // Rewriting to a path with no page renders the regular 404.
+  NextResponse.rewrite(new URL("/page-indisponible", req.url));
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Rewriting to a path with no page renders the regular 404.
-  if (!DEMO_PAGES && isDemoRoute(pathname)) {
-    return NextResponse.rewrite(new URL("/page-indisponible", req.url));
-  }
+  if (!DEMO_PAGES && isDemoRoute(pathname)) return notFound(req);
+
+  const isAdmin = pathname.startsWith("/admin") || pathname.startsWith("/api/admin-");
+  if (isAdmin && !adminConfigured()) return notFound(req);
 
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
-    const session = req.cookies.get(ADMIN_COOKIE);
-    if (!session) {
-      const loginUrl = new URL("/admin/login", req.url);
-      return NextResponse.redirect(loginUrl);
+    if (!(await verifySessionToken(req.cookies.get(ADMIN_COOKIE)?.value))) {
+      return NextResponse.redirect(new URL("/admin/login", req.url));
     }
   }
 

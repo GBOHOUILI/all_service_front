@@ -8,11 +8,23 @@ import { BRAND } from "@/lib/brand";
 export default function AdminLoginPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-    await fetch("/api/admin-login", { method: "POST" });
+    setError(null);
+    const data = new FormData(e.currentTarget);
+    const res = await fetch("/api/admin-login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: data.get("email"), password: data.get("password") }),
+    });
+    if (!res.ok) {
+      setError("Email ou mot de passe incorrect.");
+      setLoading(false);
+      return;
+    }
     router.push("/admin");
     router.refresh();
   }
@@ -29,14 +41,15 @@ export default function AdminLoginPage() {
           Connectez-vous pour gérer la boutique.
         </p>
         <form onSubmit={handleSubmit}>
-          <div className="form-field"><label>Adresse email</label><input type="email" required defaultValue="aicha@allservices.bj" /></div>
-          <div className="form-field"><label>Mot de passe</label><input type="password" required defaultValue="demo1234" /></div>
+          <div className="form-field"><label>Adresse email</label><input name="email" type="email" required autoComplete="username" /></div>
+          <div className="form-field"><label>Mot de passe</label><input name="password" type="password" required autoComplete="current-password" /></div>
+          {error && <p style={{ color: "#b4453a", fontSize: 13, margin: "0 0 14px" }}>{error}</p>}
           <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
             {loading ? "Connexion…" : "Se connecter"}
           </button>
         </form>
         <p className="center" style={{ fontSize: 12, color: "var(--ink-soft)", marginTop: 20 }}>
-          Démo : n&apos;importe quel email / mot de passe fonctionne. · <Link href="/" style={{ color: "var(--forest)" }}>Retour au site</Link>
+          <Link href="/" style={{ color: "var(--forest)" }}>Retour au site</Link>
         </p>
       </div>
     </div>

@@ -1,16 +1,23 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { ADMIN_COOKIE, SESSION_TTL, checkCredentials, createSessionToken } from "@/lib/admin-session";
 
-export async function POST() {
-  // DÉMO : accepte n'importe quel email/mot de passe. Pose un cookie
-  // simple sans hash ni expiration gérée serveur. À remplacer par une
-  // vraie vérification (mot de passe hashé + comparaison en DB) avant
-  // toute mise en production.
+export async function POST(req: NextRequest) {
+  const body = await req.json().catch(() => ({}));
+  const ok = await checkCredentials(String(body.email ?? ""), String(body.password ?? ""));
+
+  if (!ok) {
+    // No rate limiting yet: a short delay at least slows down guessing.
+    await new Promise((r) => setTimeout(r, 800));
+    return NextResponse.json({ error: "Identifiants incorrects." }, { status: 401 });
+  }
+
   const res = NextResponse.json({ ok: true });
-  res.cookies.set("as_admin_session", "1", {
+  res.cookies.set(ADMIN_COOKIE, await createSessionToken(), {
     httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
-    maxAge: 60 * 60 * 8, // 8h
+    maxAge: SESSION_TTL,
   });
   return res;
 }
